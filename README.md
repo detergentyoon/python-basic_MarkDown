@@ -149,3 +149,103 @@ print(randrange(1,10) # 1 ~ 10 미만의 임의의 값 생성
 
 print(randint(1,10)) # 1 ~ 10 이하의 임의의 값 생성
 ```
+
+# 문자열
+```python
+sentence = '나는 코더입니다'
+sentence2 = "파이썬은 쉬워요"
+sentence3 = """
+나는 코더이고
+파이썬은 쉬워요
+"""
+```
+<br>
+
+# 슬라이싱
+```python
+info = "990428-1234567"
+
+print("연 : " + info[:2]) # 0 부터 2 직전까지 (0, 1)
+print("월 : " + info[2:4])
+print("일 : " + info[4:6])
+print("생년월일 : " + info[:6]) # 처음부터 6 직전까지
+print("뒤 7자리 : " + info[7:]) # 7 부터 끝까지
+print("뒤 7자리(뒤에부터) : " + info[-7:]) # 맨 뒤에서 7번째부터 끝까지
+```
+<br>
+
+# 문자열 처리 함수
+```python
+python = "Python is Amazing"
+print(python.lower()) # python is amazing
+print(python.upper()) # PYTHON IS AMAZING
+print(python[0].isupper()) # True
+print(len(python)) # 17
+print(python.replace("Python", "Java")) # Java is Amazing
+
+index = python.index("n")
+print(index) # 5
+index = python.index("n", index + 1)
+print(index) # 15
+
+print(python.find("java")) # 없는 문자를 검색하면 -1 출력
+print(python.index("java")) # 없는 문자를 검색하면 오류 > 프로그램 종료
+
+print(python.count("n")) # 2
+```
+<br>
+
+# 문자열 포맷
+## 방법 1
++ 정수 
+```python
+print("나는 %d살입니다." % 20)
+# 나는 20살입니다.
+```
+
+
++ 문자
+```python
+print("Apple 은 %c로 시작해요." % "A")
+# Apple 은 A로 시작해요.
+```
+
++ 문자열
+```python
+print("나는 %s을 사용해요." % "Python")
+# 나는 Python을 사용해요.
+print("나는 %s살입니다." % 20)
+# 나는 20살입니다.
+print("나는 %s색과 %s색을 좋아해요." % ("흰", "검은"))
+# 나는 흰색과 검은색을 좋아해요.
+```
+
+
+## 방법 2
+```python
+print("나는 {}살입니다.".format(20))
+# 나는 20살입니다.
+
+print("나는 {}색과 {}색을 좋아해요.".format("흰", "검은"))
+print("나는 {0}색과 {1}색을 좋아해요.".format("흰", "검은"))
+# 나는 흰색과 검은색을 좋아해요.
+
+print("나는 {1}색과 {0}색을 좋아해요.".format("흰", "검은"))
+# 나는 검은색과 흰색을 좋아해요.
+```
+
+## 방법 3
+```python
+print("나는 {age}살이며, {color}색을 좋아해요.".format(age = 20, color = "검은"))
+print("나는 {age}살이며, {color}색을 좋아해요.".format(color = "검은", age = 20))
+# 나는 20살이며, 검은색을 좋아해요.
+```
+
+## 방법 4
+```python
+age = 20
+color = "검은"
+
+print(f"나는 {age}살이며, {color}색을 좋아해요.")
+# 나는 20살이며, 검은색을 좋아해요.
+```
