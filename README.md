@@ -10,8 +10,8 @@ print(3*(3+1)) # 12
 ```
 <br>
 
+---
 # `문자열 자료형`
-
 ```python
 print('Python') # Python
 print("Python") # Python
@@ -19,8 +19,8 @@ print("Python"*3) # PythonPythonPython
 ```
 <br>
 
+---
 # `boolean 자료형`
-
 ```python
 # 참 / 거짓
 print(5 > 10) # False
@@ -33,8 +33,8 @@ print(not (5 > 10)) # True
 ```
 <br>
 
-# `변수`
-
+---
+# `변수(variable)`
 ```python
 # 애완동물을 소개합니다
 
@@ -52,7 +52,7 @@ print(name + "은 어른일까요? " + str(is_adult))
 # 파이썬은 4살이며, 산책을 아주 좋아합니다.
 # 파이썬은 어른일까요? True
 ```
-+ 변수의 값만 수정하여 출력문을 수정할 수 있습니다.
+변수의 값만 수정하여 출력문을 수정할 수 있습니다.
 ```python
 animal = "고양이"
 name = "리눅스"
@@ -64,13 +64,14 @@ is_adult = age >= 3
 # 리눅스은 2살이며, 낮잠을 아주 좋아합니다.
 # 리눅스은 어른일까요? False
 ```
-+ \+ 대신 , 을 사용할 수 있습니다. 이 경우 **정수형 변수나 boolean 변수를 str()로 감싸주지 않고도 출력이 가능**하지만 **변수의 끝에 공백이 붙습니다.**
+\+ 대신 , 을 사용할 수 있습니다. 이 경우 **정수형 변수나 boolean 변수를 str()로 감싸주지 않고도 출력이 가능**하지만 **변수의 끝에 공백이 붙습니다.**
 ```python
 print(name, "은 ", age, "살이며, ", hobby, "을 아주 좋아합니다.")
 # 리눅스 은  2 살이며,  낮잠 을 아주 좋아합니다.
 ```
 <br>
 
+---
 # `주석`
 ```python
 # 한 줄 주석
@@ -81,6 +82,7 @@ print(name, "은 ", age, "살이며, ", hobby, "을 아주 좋아합니다.")
 ```
 <br>
 
+---
 # `연산자`
 + add . sub . mul . div
 ```python
@@ -116,6 +118,7 @@ print(not(1 != 3)) # False
 ```
 <br>
 
+---
 # `숫자 처리 함수`
 + 절대값 . 제곱 . 최댓값 . 최솟값 . 반올림
 ```python
@@ -135,7 +138,8 @@ print(sqrt(16)) # 제곱근. 4
 ```
 <br>
 
-# `랜덤 함수`
+---
+# `랜덤 함수(random function)`
 ```python
 from random import *
 
@@ -150,7 +154,8 @@ print(randrange(1,10) # 1 ~ 10 미만의 임의의 값 생성
 print(randint(1,10)) # 1 ~ 10 이하의 임의의 값 생성
 ```
 
-# `문자열`
+---
+# `문자열(string)`
 ```python
 sentence = '나는 코더입니다'
 sentence2 = "파이썬은 쉬워요"
@@ -161,7 +166,8 @@ sentence3 = """
 ```
 <br>
 
-# `슬라이싱`
+---
+# `슬라이싱(slicing)`
 ```python
 info = "990428-1234567"
 
@@ -174,6 +180,7 @@ print("뒤 7자리(뒤에부터) : " + info[-7:]) # 맨 뒤에서 7번째부터 
 ```
 <br>
 
+---
 # `문자열 처리 함수`
 ```python
 python = "Python is Amazing"
@@ -195,7 +202,8 @@ print(python.count("n")) # 2
 ```
 <br>
 
-# `문자열 포맷`
+---
+# `문자열 포맷(str.format)`
 ## 방법 1
 + 정수 
 ```python
@@ -244,7 +252,8 @@ print(f"나는 {age}살이며, {color}색을 좋아해요.")
 ```
 <br>
 
-# `탈출문자`
+---
+# `탈출문자(escape character)`
 `\n` : 줄바꿈
 ```python
 print("백문이 불여일견\n백견이 불여일타")
@@ -281,7 +290,8 @@ print("Red\tApple")
 ```
 <br>
 
-# `리스트 자료형`
+---
+# `리스트 자료형(list)`
 [ ] 로 값을 묶어놓은 클래스
 ```python
 subway = [10, 20, 30]
@@ -357,7 +367,8 @@ print(num_list)
 ```
 <br>
 
-# `사전 자료형`
+---
+# `사전 자료형(dict)`
 key 와 value 를 포함한 { } 의 형태로 묶어놓은 클래스로, key 의 중복이 불가능함
 ```python
 cabinet = {3:"유재석", 100:"김태호"}
@@ -431,4 +442,126 @@ print(cabinet.items())
 cabinet.clear()
 print(cabinet)
 # {}
+```
+<br>
+
+---
+# `튜플 자료형(tuple)`
+튜플은 리스트와 다르게 내용을 변경이나 추가할 수 없지만 처리 속도는 리스트보다 빠르기 때문에, <u>변경되지 않는 목록</u>을 활용할 때 주로 튜플을 사용합니다.
+```python
+menu = ("돈까스", "치즈까스")
+print(menu[0]) # 돈까스
+print(menu[1]) # 치즈까스
+```
+## 코딩 방법 1
+```python
+name = "mildMan"
+age = 23
+hobby = "Game"
+print(name, age, hobby) # mildMan 23 Game
+```
+## 코딩 방법 2
+```python
+(name, age, hobby) = ("mildMan", 23, "Game")
+print(name, age, hobby) # mildMan 23 Game
+```
+<br>
+
+---
+# `집합 자료형(set)`
+집합(set)은 **중복이 불가능**하고, **순서가 없는** 것이 특징인 자료형입니다.
+<br>
+<br>
+## **코딩 방법**
+```python
+temp = {1,2,3,3,3}
+print(temp) # {1, 2, 3}   => '3' 이 중복되지 않음
+
+java = {"유재석", "김태호", "양세형"} # 방법 1
+python = set(["유재석", "박명수"]) # 방법 2
+
+# 방법 2 처럼 list 형태로 먼저 만들고 나서 set() 로 묶어줄 수도 있습니다.
+```
+## **교집합** (java 와 python 을 모두 할 수 있는 개발자)
+```python
+print(java & python)
+print(java.intersection(python))
+# {'유재석'}
+```
+## **합집합** (java 혹은 python 을 할 수 있는 개발자)
+```python
+print(java | python)
+print(java.union(python))
+# {'박명수', '양세형', '김태호', '유재석'}
+```
+## **차집합** (java 는 할 수 있지만 python 은 할 줄 모르는 개발자)
+```python
+print(java - python)
+print(java.difference(python))
+# {'양세형', '김태호'}
+```
+## **추가** (python 을 할 수 있는 개발자가 늘어남)
+```python
+python.add("김태호")
+print(python) # {'유재석', '김태호', '박명수'}
+```
+## **삭제** (java 사용법을 잊어버린 개발자)
+```python
+java.remove("김태호")
+print(java) # {'유재석', '양세형'}
+```
+<br>
+
+---
+# `자료구조의 변경`
+```python
+menu = {"커피", "우유", "주스"}
+
+print(menu, type(menu))
+# {'우유', '주스', '커피'} <class 'set'>
+
+menu = list(menu)
+print(menu, type(menu))
+# ['주스', '커피', '우유'] <class 'list'>
+
+menu = tuple(menu)
+print(menu, type(menu))
+# ('커피', '우유', '주스') <class 'tuple'>
+
+menu = set(menu)
+print(menu, type(menu))
+# {'커피', '우유', '주스'} <class 'set'>
+```
+<br>
+
+---
+# `조건문(if)`
+## **코딩 방법**
+```python
+변수 = "비"
+if 조건 :
+  실행 명령문
+```
+## **예제 1** ("오늘 날씨는 어때?")
+```python
+weather = input("How's the weather today?\n")
+
+if weather == "rainy" or weather == "snowy" :
+  print("Take a umbrella.")
+elif weather == "air pollution" :
+  print("Take a mask")
+else :
+  print("It's up to you.")
+```
+## **예제 2** ("오늘 기온은 어때?)
+```python
+temp = int(input("How's the temperature today?\n"))
+if 30 <= temp :
+  print("It's too hot. don't go outside.")
+elif 10 <= temp & temp < 30 :
+  print("It's a nice day.")
+elif 0 <= temp < 10 :
+  print("I'll have to put on my coat.")
+else :
+  print("It's too cold. don't go outside.")
 ```
