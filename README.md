@@ -1,4 +1,7 @@
-# `숫자 자료형`
+# **`1-1. Python`**
+다른 언어에 비해 사용하기가 아주 쉬운 Python의 기본 문법과 실생활 기반 예제, Part 별 퀴즈 등 Youtube 나도코딩님의 파이썬 기본편 강의를 공부한 내용을 MarkDown으로 정리했습니다.
+
+# **`2-1. 숫자 자료형`**
 ```python
 print(5) # 5
 print(-10) # -10
@@ -11,7 +14,7 @@ print(3*(3+1)) # 12
 <br>
 
 ---
-# `문자열 자료형`
+# **`2-2. 문자열 자료형`**
 ```python
 print('Python') # Python
 print("Python") # Python
@@ -20,7 +23,7 @@ print("Python"*3) # PythonPythonPython
 <br>
 
 ---
-# `boolean 자료형`
+# **`2-3. boolean 자료형`**
 ```python
 # 참 / 거짓
 print(5 > 10) # False
@@ -34,7 +37,7 @@ print(not (5 > 10)) # True
 <br>
 
 ---
-# `변수(variable)`
+# **`2-4. 변수(variable)`**
 ```python
 # 애완동물을 소개합니다
 
@@ -72,7 +75,7 @@ print(name, "은 ", age, "살이며, ", hobby, "을 아주 좋아합니다.")
 <br>
 
 ---
-# `주석`
+# **`2-5. 주석`**
 ```python
 # 한 줄 주석
 
@@ -83,7 +86,7 @@ print(name, "은 ", age, "살이며, ", hobby, "을 아주 좋아합니다.")
 <br>
 
 ---
-# `연산자`
+# **`3-1. 연산자 & 수식`**
 + add . sub . mul . div
 ```python
 print(1 + 1) # 2
@@ -119,7 +122,7 @@ print(not(1 != 3)) # False
 <br>
 
 ---
-# `숫자 처리 함수`
+# **`3-2. 숫자 처리 함수`**
 + 절대값 . 제곱 . 최댓값 . 최솟값 . 반올림
 ```python
 print(abs(-5)) # 5
@@ -139,7 +142,7 @@ print(sqrt(16)) # 제곱근. 4
 <br>
 
 ---
-# `랜덤 함수(random function)`
+# **`3-3. 랜덤 함수(random function)`**
 ```python
 from random import *
 
@@ -155,7 +158,7 @@ print(randint(1,10)) # 1 ~ 10 이하의 임의의 값 생성
 ```
 
 ---
-# `문자열(string)`
+# **`4-1. 문자열(string)`**
 ```python
 sentence = '나는 코더입니다'
 sentence2 = "파이썬은 쉬워요"
@@ -167,7 +170,7 @@ sentence3 = """
 <br>
 
 ---
-# `슬라이싱(slicing)`
+# **`4-2. 슬라이싱(slicing)`**
 ```python
 info = "990428-1234567"
 
@@ -181,7 +184,7 @@ print("뒤 7자리(뒤에부터) : " + info[-7:]) # 맨 뒤에서 7번째부터 
 <br>
 
 ---
-# `문자열 처리 함수`
+# **`4-3. 문자열 처리 함수`**
 ```python
 python = "Python is Amazing"
 print(python.lower()) # python is amazing
@@ -203,7 +206,7 @@ print(python.count("n")) # 2
 <br>
 
 ---
-# `문자열 포맷(str.format)`
+# **`4-4. 문자열 포맷(str.format)`**
 ## 방법 1
 + 정수 
 ```python
@@ -253,7 +256,7 @@ print(f"나는 {age}살이며, {color}색을 좋아해요.")
 <br>
 
 ---
-# `탈출문자(escape character)`
+# **`4-5 탈출문자(escape character)`**
 `\n` : 줄바꿈
 ```python
 print("백문이 불여일견\n백견이 불여일타")
@@ -291,7 +294,7 @@ print("Red\tApple")
 <br>
 
 ---
-# `리스트 자료형(list)`
+# **`5-1. 리스트 자료형(list)`**
 [ ] 로 값을 묶어놓은 클래스
 ```python
 subway = [10, 20, 30]
@@ -368,7 +371,7 @@ print(num_list)
 <br>
 
 ---
-# `사전 자료형(dict)`
+# **`5-2. 사전 자료형(dict)`**
 key 와 value 를 포함한 { } 의 형태로 묶어놓은 클래스로, key 의 중복이 불가능함
 ```python
 cabinet = {3:"유재석", 100:"김태호"}
@@ -446,7 +449,7 @@ print(cabinet)
 <br>
 
 ---
-# `튜플 자료형(tuple)`
+# **`5-3. 튜플 자료형(tuple)`**
 튜플은 리스트와 다르게 내용을 변경이나 추가할 수 없지만 처리 속도는 리스트보다 빠르기 때문에, <u>변경되지 않는 목록</u>을 활용할 때 주로 튜플을 사용합니다.
 ```python
 menu = ("돈까스", "치즈까스")
@@ -468,7 +471,7 @@ print(name, age, hobby) # mildMan 23 Game
 <br>
 
 ---
-# `집합 자료형(set)`
+# **`5-4. 집합 자료형(set)`**
 집합(set)은 **중복이 불가능**하고, **순서가 없는** 것이 특징인 자료형입니다.
 <br>
 <br>
@@ -513,7 +516,7 @@ print(java) # {'유재석', '양세형'}
 <br>
 
 ---
-# `자료구조의 변경`
+# **`5-5. 자료구조의 변경`**
 ```python
 menu = {"커피", "우유", "주스"}
 
@@ -535,7 +538,7 @@ print(menu, type(menu))
 <br>
 
 ---
-# `조건문(if)`
+# **`6-1. 조건문(if)`**
 ## **코딩 방법**
 ```python
 변수 = "비"
@@ -564,4 +567,190 @@ elif 0 <= temp < 10 :
   print("I'll have to put on my coat.")
 else :
   print("It's too cold. don't go outside.")
+```
+<br>
+
+---
+# **`6-2. 반복문 : for`**
+## **예제 1** (같은 문장 count 출력)
+```python
+cnt = list(range(0, 6))
+
+for i in cnt :
+  print(f"{i}th output")
+
+# 0th output
+# 1th output
+# ...
+# 5th output
+```
+## **예제 2** ("OO님, 주문하신 커피 나왔습니다.")
+```python
+customer = ["Alice", "Kiki", "Howl"]
+
+for i in customer :
+  print(f"{i}님, 주문하신 커피 나왔습니다.")
+
+# Alice님, 주문하신 커피 나왔습니다.
+# Kiki님, 주문하신 커피 나왔습니다.
+# Howl님, 주문하신 커피 나왔습니다.
+```
+<br>
+
+---
+# **`6-3. 반복문 : while`**
+## **코딩 방법**
+```python
+while (조건) :
+  (출력)
+```
+## **예제 1** (폐기처분 커피)
+***조건 1** : 손님이 주문하신 커피가 완성되면 2분 간격으로 손님을 호출*  
+***조건 2** : 10분이 지나도 손님이 받으러 오시지 않으시면 커피를 폐기처분함*
+```python
+customer = "Alice"
+i = 10
+
+while i >= 1 :
+  print(f"{customer}님, 커피 나왔습니다. (남은 시간 : {i}분)")
+  i -= 2
+  if i == 0 :
+    print(f"{customer}님의 커피는 폐기처분 되었습니다.")
+
+# Alice님, 커피 나왔습니다. (남은 시간 : 10분)
+# Alice님, 커피 나왔습니다. (남은 시간 : 8분)
+# Alice님, 커피 나왔습니다. (남은 시간 : 6분)
+# Alice님, 커피 나왔습니다. (남은 시간 : 4분)
+# Alice님, 커피 나왔습니다. (남은 시간 : 2분)
+# Alice님의 커피는 폐기처분 되었습니다.
+```
+## **예제 2** (무한루프)
+반복문이 끝도 없이 반복되는 것을 '무한루프에 빠졌다' 라고 합니다.  
+무한루프 도중 터미널에 Ctrl + C 를 입력하면 키보드인터럽트를 통해 프로그램을 강제로 중지시킬 수 있습니다.
+```python
+i = 1
+while 1 : # 1 혹은 True 
+  print(f"{i}회")
+  i += 1
+
+# 1회
+# 2회
+# 3회
+# ...
+```
+## **예제 3** (커피를 받으러 온 손님이 음료를 주문한 손님이 맞는지 확인하기)
+조건 : while문의 조건과 일치하기 전까지 무한루프를 돌림
+```python
+customer = "Alice"
+guestID = "unknown"
+
+while guestID != customer :
+  print(f"{customer}님, 커피가 준비 되었습니다.")
+  guestID = input("고객님 ID가 어떻게 되세요?\n")
+
+# Alice님, 커피가 준비 되었습니다.
+# 고객님 ID가 어떻게 되세요?
+# mildMan   => guest 와 input 값이 서로 다르기 때문에 다시 반복
+
+# Alice님, 커피가 준비 되었습니다.
+# 고객님 ID가 어떻게 되세요?
+# Alice   => guest 와 input 값이 서로 동일하여 반복문 종료
+```
+<br>
+
+---
+# **`6-4. continue & break`**
+## **예제 1** (출석체크)
+***조건** : 결석자를 제외한 학생만 출석을 부름*
+```python
+absent = [3, 5] # 결석자
+
+for i in range(1,7) :
+  if i in absent :
+    continue
+  print(f"{i}번 출석")
+
+# 1번 출석
+# 2번 출석
+# 4번 출석
+# 6번 출석
+```
+## **예제 2** (수업 강제 종료)
+***조건** : 무서운 선생님께서는 교과서를 안가져온 학생이 있으면 수업을 끝내버림*
+```python
+absent = [3, 5] # 결석자
+no_book = [4] # 교과서 미지참자
+
+for i in range(1,7) :
+  if i in absent :
+    continue
+  if i in no_book :
+    print(f"오늘 수업 여기까지. {i}번은 교무실로 따라와.")
+    break
+  print(f"{i}번 출석")
+
+# 1번 출석
+# 2번 출석
+# 오늘 수업 여기까지. 4번은 교무실로 따라와.
+```
+<br>
+
+---
+# **`6-5. 6한 줄 for`**
+## **예제 1** (출석번호 앞에 100 붙이기)
+```python
+student = list(range(1,6))
+
+student = [i+100 for i in student]
+print(student) # [101, 102, 103, 104, 105]
+```
+## **예제 2** (이름을 길이로 변환)
+```python
+cnt = ["Iron man","Thor","Captain america"]
+
+cnt = [len(i) for i in cnt]
+print(cnt) # [8, 4, 15]
+```
+## **예제 3** (이름을 대문자로 변환)
+```python
+cnt = ["Iron man","Thor","Captain america"]
+
+cnt = [i.upper() for i in cnt]
+print(cnt) # ['IRON MAN', 'THOR', 'CAPTAIN AMERICA']
+```
+<br>
+
+---
+# **`Part 6 퀴즈`**
+당신은 Cocoa 서비스를 이용하는 택시 기사님입니다.  
+50명의 승객과 매칭 기회가 있을 때, 총 탑승 승객 수를 구하는 프로그램을 작성하시오.
+
+***조건 1** : 승객 별 운행 소요 시간은 5분 ~ 50분 사이의 난수로 정해집니다.*  
+***조건 2** : 당신은 소요 시간 5분 ~ 15분 사이의 승객만 매칭해야 합니다.*
+
+### **출력문 예제**
+```python
+[O] 1번째 손님 (소요시간 : 15분)
+[ ] 2번째 손님 (소요시간 : 50분)
+[O] 3번째 손님 (소요시간 : 5분)
+...  
+[ ] 50번째 손님 (소요시간 : 16분)
+
+총 탑승 승객 : 2명
+```
+### **정답 코드**
+```python
+from random import *
+
+guest = 0
+
+for i in range(1, 51) :
+  time = randrange(5, 51)
+  if 5 <= time <= 15 :
+    print(f"[O] {i}번째 손님 (소요시간 : {time}분)")
+    guest += 1
+  else :
+    print(f"[ ] {i}번째 손님 (소요시간 : {time}분)")
+
+print(f"총 탑승 승객 : {guest}명")
 ```
