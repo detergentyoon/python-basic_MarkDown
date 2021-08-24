@@ -754,3 +754,75 @@ for i in range(1, 51) :
 
 print(f"총 탑승 승객 : {guest}명")
 ```
+<br>
+
+---
+# **`7-1. 함수`**
+## **코딩 방법**
+```python
+# 정의
+def function_name() :
+  output process
+
+# 호출
+function_name()
+```
+<br>
+
+---
+# **`7-2. 전달값과 반환값`**
+함수 내에서 동작한 매개변수는 함수를 탈출함과 동시에 무효화됩니다.  
+때문에 함수 안에서 동작한 값을 밖에서도 활용하기 위해 전달값과 반환값(return)을 사용합니다.
+## **예제 1-1** (금액 입금)
+```python
+def deposit(balance, money): # 입금
+  print(f"입금 완료. 잔액 : {balance + money}원")
+  return balance + money
+
+balance = 0 # 잔액
+balance = deposit(balance, 1000) # 1000원 입금의 함수 동작 결과를 return 을 통해 가져옴
+
+print(str(balance)+"원")
+
+# 입금 완료 | 잔액 : 1000원
+# 1000원
+```
+## **예제 1-2** (금액 출금)
+```python
+def withdraw(balance, money):
+  if balance >= money :
+    print(f"출금 완료 | 잔액 : {balance - money}원")
+    return balance - money
+  else :
+    print(f"잔액 부족 | 잔액 : {balance}원")
+    return balance
+
+# balance < money process
+balance = withdraw(balance, 5000)
+print(str(balance)+"원")
+# 잔액 부족 | 잔액 : 1000원
+# 1000원
+
+# balance >= money process
+balance = withdraw(balance, 700)
+print(str(balance)+"원")
+# 출금 완료 | 잔액 : 300원
+# 300원
+```
+## **예제 1-3** (수수료가 붙는 저녁시간 금액 출금)
+```python
+def withdraw_night(balance, money):
+  commission = 100 # 수수료 100원
+  return commission, balance - money - commission # tuple 형태로 여러 개의 값 반환
+
+balance = 0
+balance = deposit(balance, 10000)
+# 입금 완료 | 잔액 : 10000원
+
+commission, balance = withdraw_night(balance, 500)
+print(f"수수료 : {commission}원 | 잔액 : {balance}원")
+# 수수료 : 100원 | 잔액 : 9400원
+```
+<br>
+
+---
