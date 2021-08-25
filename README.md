@@ -773,7 +773,7 @@ function_name()
 # **`7-2. 전달값과 반환값`**
 함수 내에서 동작한 매개변수는 함수를 탈출함과 동시에 무효화됩니다.  
 때문에 함수 안에서 동작한 값을 밖에서도 활용하기 위해 전달값과 반환값(return)을 사용합니다.
-## **예제 1-1** (금액 입금)
+## **예제 1-1** (현금 입출금)
 ```python
 def deposit(balance, money): # 입금
   print(f"입금 완료. 잔액 : {balance + money}원")
@@ -781,14 +781,10 @@ def deposit(balance, money): # 입금
 
 balance = 0 # 잔액
 balance = deposit(balance, 1000) # 1000원 입금의 함수 동작 결과를 return 을 통해 가져옴
-
-print(str(balance)+"원")
-
-# 입금 완료 | 잔액 : 1000원
+print(f"{balance}원")
+# 입금 완료. 잔액 : 1000원
 # 1000원
-```
-## **예제 1-2** (금액 출금)
-```python
+
 def withdraw(balance, money):
   if balance >= money :
     print(f"출금 완료 | 잔액 : {balance - money}원")
@@ -799,21 +795,27 @@ def withdraw(balance, money):
 
 # balance < money process
 balance = withdraw(balance, 5000)
-print(str(balance)+"원")
+print(f"{balance}원")
 # 잔액 부족 | 잔액 : 1000원
 # 1000원
 
 # balance >= money process
 balance = withdraw(balance, 700)
-print(str(balance)+"원")
+print(f"{balance}원")
 # 출금 완료 | 잔액 : 300원
 # 300원
 ```
-## **예제 1-3** (수수료가 붙는 저녁시간 금액 출금)
+## **예제 1-2** (수수료가 붙는 야간 시간 현금 출금)
 ```python
 def withdraw_night(balance, money):
   commission = 100 # 수수료 100원
-  return commission, balance - money - commission # tuple 형태로 여러 개의 값 반환
+  if balance >= money :
+    print(f"야간 시간 출금에는 수수료 {commission}원이 청구됩니다.")
+    print(f"출금 완료 | 잔액 : {balance - money - commission}원")
+    return commission, balance - money - commission  # tuple 형태로 여러 개의 값 반환
+  else :
+    print(f"잔액이 모자랍니다 | 잔액 : {balance}원")
+    return balance
 
 balance = 0
 balance = deposit(balance, 10000)
@@ -821,8 +823,85 @@ balance = deposit(balance, 10000)
 
 commission, balance = withdraw_night(balance, 500)
 print(f"수수료 : {commission}원 | 잔액 : {balance}원")
+# 야간 시간 출금에는 수수료 100원이 청구됩니다.
+# 출금 완료 | 잔액 : 9400원
 # 수수료 : 100원 | 잔액 : 9400원
 ```
 <br>
 
 ---
+# **`7-3. 함수의 기본값`**
+## **예제** (같은 학년, 같은 반 프로필 기본값)
+```python
+def profile(name, age=17, main_lang="Python"): # 함수의 매개변수에 미리 값을 지정해놓으면
+  print(f"이름 : {name}\t나이 : {age}\t주 사용 언어 : {main_lang}")
+
+profile("유재석") # 값 지정해두지 않은 매개변수만 불러와도 나머지 매개변수들의 값은 미리 지정해둔 값으로 출력
+profile("박명수")
+# 이름 : 유재석   나이 : 17       주 사용 언어 : Python
+# 이름 : 박명수   나이 : 17       주 사용 언어 : Python
+```
+<br>
+
+---
+# **`7-4. 키워드값`**
+함수에서 전달받는 매개변수의 값을 키워드를 이용해서 함수를 호출하면(키워드=값)
+그 키워드에 해당하는 값이 순서가 뒤섞여있어도 정의한 함수의 순서대로 출력됨
+```python
+def profile(name, age, main_lang):
+  print(name, age, main_lang)
+
+profile(name="유재석", main_lang="Python", age=20)
+profile(main_lang="Java", age=25, name="김태호")
+# 유재석 20 Python
+# 김태호 25 Java
+```
+<br>
+
+---
+# **`7-5. 가변인자를 이용한 함수 호출`**
+서로 다른 갯수의 값을 넣어줄 때는 가변인자(*로 시작되는 매개변수)를 사용
+
+## **예제** (사용 가능한 프로그래밍 언어 갯수)
+```python
+def profile(name, age, *language):
+  print(f"이름 : {name}\t나이 : {age}\t", end=" ") # end=" " : 출력문이 줄바꿈이 되지 않고 나란히 나오도록 하는 용도
+  for lang in language:
+    print(lang, end=" ")
+  print() # 줄바꿈
+
+profile("유재석", 20, "Python", "Java", "C", "C++", "C#", "Javascript")
+profile("박명수", 25, "Kotlin", "Swift")
+# 이름 : 유재석   나이 : 20        Python Java C C++ C# Javascript 
+# 이름 : 박명수   나이 : 25        Kotlin Swift
+```
+<br>
+
+---
+# **`7-6. 지역변수와 전역변수`**
+지역변수 : 함수 내에서만 사용이 가능하고, 함수 밖으로 탈출하면 사라지는 변수
+전역변수 : 프로그램 어느 곳에서나 호출할 수 있는 변수
+## **예제** (총기함에 보관된 남은 총의 갯수)
+```python
+gun = 10
+
+def checkpoint(soldiers): # 경계 근무를 나가는 2명의 군인
+  global gun # 전역 공간에 있는 'gun' 변수를 사용하겠음을 선언
+  gun = gun - soldiers
+  print(f"[함수 내] 남은 총 : {gun}정")
+
+def checkpoint_ret(gun, soldiers):
+  gun = gun - soldiers
+  print(f"[함수 내] 남은 총 : {gun}정")
+  return gun
+
+print(f"전체 총 : {gun}정") # 최상단에서 정의한 변수 gun   => 10정
+checkpoint(2) # 2명이 경계 근무를 나감   => 8정
+gun = checkpoint_ret(gun, 2) # 2명이 추가로 경계 근무를 나감   => 6정
+print(f"남은 총 : {gun}")
+
+# 전체 총 : 10정
+# [함수 내] 남은 총 : 8정
+# [함수 내] 남은 총 : 6정
+# 남은 총 : 6
+```
