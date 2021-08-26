@@ -771,8 +771,8 @@ function_name()
 
 ---
 # **`7-2. 전달값과 반환값`**
-함수 내에서 동작한 매개변수는 함수를 탈출함과 동시에 무효화됩니다.  
-때문에 함수 안에서 동작한 값을 밖에서도 활용하기 위해 전달값과 반환값(return)을 사용합니다.
+함수 내에서 동작한 매개변수는 함수를 탈출함과 동시에 사라집니다.  
+때문에 함수 안에서 동작한 값을 밖에서도 활용하기 위해 반환값(**return**)을 사용합니다.
 ## **예제 1-1** (현금 입출금)
 ```python
 def deposit(balance, money): # 입금
@@ -879,8 +879,14 @@ profile("박명수", 25, "Kotlin", "Swift")
 
 ---
 # **`7-6. 지역변수와 전역변수`**
-지역변수 : 함수 내에서만 사용이 가능하고, 함수 밖으로 탈출하면 사라지는 변수
-전역변수 : 프로그램 어느 곳에서나 호출할 수 있는 변수
++ 지역변수 : 함수 내에서만 사용이 가능하고, 함수 밖으로 탈출하면 사라지는 변수  
++ 전역변수 : 프로그램 어느 곳에서나 호출할 수 있는 변수
+<br>
+<br>
+지역변수 값을 함수 밖에서도 활용하기 위해 다음과 같은 코드를 취할 수 있습니다.
+1. 정의해둔 전역변수를 함수 내에서 global 로 호출 선언
+1. 매개변수의 값을 return 을 통해 함수 밖으로 반환
+
 ## **예제** (총기함에 보관된 남은 총의 갯수)
 ```python
 gun = 10
@@ -895,13 +901,291 @@ def checkpoint_ret(gun, soldiers):
   print(f"[함수 내] 남은 총 : {gun}정")
   return gun
 
-print(f"전체 총 : {gun}정") # 최상단에서 정의한 변수 gun   => 10정
-checkpoint(2) # 2명이 경계 근무를 나감   => 8정
-gun = checkpoint_ret(gun, 2) # 2명이 추가로 경계 근무를 나감   => 6정
+print(f"전체 총 : {gun}정") #   => 10정
+checkpoint(2) #   => 8정
+gun = checkpoint_ret(gun, 2) #   => 6정
 print(f"남은 총 : {gun}")
 
 # 전체 총 : 10정
 # [함수 내] 남은 총 : 8정
 # [함수 내] 남은 총 : 6정
 # 남은 총 : 6
+```
+<br>
+
+---
+# **`Part 7 퀴즈`**
+
+Quiz) 표준 체중을 구하는 프로그램을 작성하시오
+
+* 표준 체중 : 각 개인의 키에 적당한 체중
+
+(성별에 따른 공식)
+  남자 : 키(m) x 키(m) x 22
+  여자 : 키(m) x 키(m) x 21
+
+조건 1 : 표준 체중은 별도의 함수 내에서 계산
+        * 함수명 : std_weight
+        * 전달값 : 키(height), 성별(gender)
+조건 2 : 표준 체중은 소수점 둘째 자리로 표시
+
+## **(출력 예제)**
+키 175cm 남자의 표준 체중은 67.38kg 입니다.
+
+## **정답 코드**
+```python
+def std_weight(height, gender):
+  if gender == "남자" :
+    return height * height * 22
+  elif gender == "여자" :
+    return height * height * 21
+
+height = 175
+gender = "남자"
+weight = std_weight(height / 100, gender)
+
+print(f"키 {height}cm {gender}의 표준 체중은 {weight:.2f}kg입니다.")
+
+height = 175
+gender = "여자"
+weight = std_weight(height / 100, gender)
+
+print(f"키 {height}cm {gender}의 표준 체중은 {weight:.2f}kg입니다.")
+```
+<br>
+
+---
+# **`8-1. 표준 입출력`**
+## **sys**
+```python
+import sys
+
+print("Python", "Java", file=sys.stdout)
+print("Python", "Java", file=sys.stderr)
+
+# Python Java
+```
+VScode의 터미널에서는 두 출력문의 차이가 없는 것처럼 보이지만, 실제로는 아래와 같이 처리됩니다.
++ stdout : 표준 출력으로 처리
++ stderr : 표준 에러로 처리
+  + 만약 로그 처리를 하는 경우에는 에러(stderr)를 확인하고 따로 처리  
+<br>
+
+## **ljust() & rjust()**
+>ljust() : n칸의 공백을 생성하고 좌측 정렬  
+rjust() : n칸의 공백을 생성하고 우측 정렬
+```python
+scores = {"수학":0, "영어":50, "코딩":100}
+
+for subject, score in scores.items():
+  print(subject.ljust(8), str(score).rjust(4), sep=":")
+
+# 수학      :   0
+# 영어      :  50
+# 코딩      : 100
+```
+## **zfill()**
+>zfill()은 입력한 int값 만큼 비어있는 자릿 수마다 0을 생성합니다.
+```python
+for num in range(1, 11):
+  print("대기번호 : " + str(num).zfill(3))
+
+# 대기번호 : 001
+# 대기번호 : 002
+# 대기번호 : 003
+# ...
+# 대기번호 : 009
+# 대기번호 : 010
+```
+## **input**
+>사용자입력(input)을 통해서 값을 받게되면 그 값이 어떤 형태의 자료형이라도 항상 문자열(str) 형태로 저장됩니다.
+```python
+answer = input("아무 값이나 입력하세요 : ")
+print(type(answer))
+
+# 아무 값이나 입력하세요 : 10
+# <class 'str'>
+
+# 아무 값이나 입력하세요 : python
+# <class 'str'>
+```
+<br>
+
+---
+# **`8-2. 다양한 출력 포맷`**
+## **예제 1** : 빈 칸 공백, 우측 정렬, 총 10자리 공간 확보
+```python
+print("{0: >10}".format(500))
+#       500
+```
+
+## **예제 2** : 빈 칸 공백, 우측 정렬, 부호 표시
+```python
+print("{0: >+10}".format(500))
+#      +500
+print("{0: >+10}".format(-500))
+#      -500
+```
+## **예제 3** : 좌측 정렬, 빈 칸 _
+```python
+print("{0:_<10}".format(500))
+# 500_______
+```
+## **예제 4-1** : 3자리 마다 콤마(,) 생성
+```python
+print("{0:,}".format(10000000000))
+# 10,000,000,000
+```
+## **예제 4-2** : 3자리 마다 콤마(,) 생성, 부호 표시
+```python
+print("{0:+,}".format(10000000000))
+# +10,000,000,000
+print("{0:+,}".format(-10000000000))
+# -10,000,000,000
+```
+## **예제 4-3** : 3자리 마다 콤마(,) 생성, 부호 표시, 자릿수 확보, 빈 칸 *
+```python
+print("{0:*<+30,}".format(10000000000))
+# +10,000,000,000***************
+```
+## **예제 5** : 소수점 출력
+```python
+print("{0:f}".format(5/3))
+# 1.666667
+print("{0:.2f}".format(5/3))
+# 1.67
+```
+<br>
+
+---
+# **`8-3. 파일 입출력`**
+## **예제 1** : 파일 열기(생성) 및 작성, 파일 닫기
+```python
+score_file = open("score.txt", "w", encoding="utf8")
+# open 을 통해서 파일 열기
+# w(write) = '쓰기' 목적으로 열기
+# utf8 = 한글 호환 출력
+
+print("수학 : 0", file=score_file)
+print("영어 : 50", file=score_file)
+
+score_file.close()
+# file 을 열었을 때는 항상 닫아주는 logic 을 구성해야함
+```
+## **출력 화면**
+![score_file--opened](./img/score_file--opened.png)  
+score.txt 파일이 생성되고 print 입력한 내용이 txt파일에 나타납니다.
+
+<br>
+
+## **예제 2** : 이전 파일에 이어 쓰기
+```python
+score_file = open("score.txt", "a", encoding="utf8")
+# w(wirte) : 이전 파일에 덮어쓰기
+# a(append) : 이전 파일에 이어 쓰기
+
+score_file.write("과학 : 80")
+score_file.write("코딩 : 100")
+# var.write 를 통해 작성할 때에는 줄바꿈이 없음
+
+score_file.close()
+
+# 수학 : 0
+# 영어 : 50
+# 과학 : 80코딩 : 100
+```
+## **예제 3-1** : 파일 내용 읽기
+>r(read) 를 통해 터미널로 파일의 내용을 불러올 수 있습니다.
+```python
+score_file = open("score.txt", "r", encoding="utf8")
+
+print(score_file.read())
+
+score_file.close()
+
+# 수학 : 0
+# 영어 : 50
+# 과학 : 80코딩 : 100
+```
+## **예제 3-2** : readline()
+```python
+score_file = open("score.txt", "r", encoding="utf8")
+
+print(score_file.readline()) # 줄 별로 읽기, 한 줄 읽고 커서는 다음 줄로 이동
+print(score_file.readline())
+print(score_file.readline())
+
+score_file.close()
+
+# 수학 : 0
+#
+# 영어 : 50
+#
+# 과학 : 80코딩 : 100
+#
+```
+## **예제 4-1** while문을 통한 readline() 간편 제어
+```python
+score_file = open("score.txt", "r", encoding="utf8")
+
+while True:
+  line = score_file.readline()
+  if not line: # 읽어올 내용이 없으면
+    break
+  print(line, end="") # end="" : print의 자동 줄바꿈 기능을 제외하기 위한 목적
+
+score_file.close()
+
+# 수학 : 0
+# 영어 : 50
+# 과학 : 80코딩 : 100
+```
+## **예제 4-2** readlines() 와 for문을 통한 간편 제어
+>readlines() 는 파일 내용을 줄마다 list 형태로 저장합니다. 
+```python
+score_file = open("score.txt", "r", encoding="utf8")
+
+lines = score_file.readlines() # list 형태로 저장
+for line in lines:
+  print(line, end="")
+
+score_file.close()
+
+# 수학 : 0
+# 영어 : 50
+# 과학 : 80코딩 : 100
+```
+<br>
+
+---
+# **`8-4. Pickle`**
+>프로그램 상에서 내가 사용하고 있는 데이터를 file 형태로 저장해주는 것으로, 저장한 파일을 누군가에게 전달했을 때 파일 수신자가 파일을 열고 Pickle을 이용해 데이터를 불러와서 데이터를 재사용할 수 있게끔 도와주는 기능을 탑재한 라이브러리입니다.
+
+## **예제 1** : Pickle 을 이용하여 데이터를 파일에 저장
+```python
+import pickle
+
+profile_file = open("profile.pickle", "wb")
+# b(binary) : pickle 을 사용할 때는 항상 binary type 을 정의해주어야 함
+
+profile = {"이름":"박명수", "나이":30, "취미":["축구","골프","코딩"]}
+pickle.dump(profile, profile_file)
+# pickle.dump() : 첫번째 인자에 있는 정보를 두번째 인자에 저장
+
+profile_file.close()
+
+### 즉, 내가 가진 정보를 피클을 이용해서 어떤 파일에 저장하는 과정 ###
+```
+## **예제 2** : Pickle 을 이용하여 파일에서 데이터 추출
+```python
+import pickle
+
+profile_file = open("profile.pickle", "rb")
+profile = pickle.load(profile_file)
+# pickle.load() : file 에 들어있는 데이터를 profile 에 불러오기
+print(profile) # {'이름': '박명수', '나이': 30, '취미': ['축구', '골프', '코딩']}
+
+profile_file.close()
+
+# 그 파일에 있는 내용을 load 를 통해 불러와서 변수에 저장을 해서 계속 사용할 수 있도록 도와주는 라이브러리
 ```
