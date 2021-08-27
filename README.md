@@ -156,6 +156,31 @@ print(randrange(1,10) # 1 ~ 10 미만의 임의의 값 생성
 
 print(randint(1,10)) # 1 ~ 10 이하의 임의의 값 생성
 ```
+<br>
+
+---
+# **`Part 3 퀴즈`**
+당신은 최근에 코딩 스터디 모임을 새로 만들었습니다.  
+월 4회 스터디를 하는데 3번은 온라인으로 하고 1번은 오프라인으로 하기로 했습니다.  
+아래 조건에 맞는 오프라인 모임 날짜를 정해주는 프로그램을 작성하시오.  
+
++ 조건 1 : 랜덤으로 날짜를 뽑아야 함
++ 조건 2 : 월별 날짜는 다름을 감안하여 최소 일수인 28 이내로 정함
++ 조건 3 : 매월 1~3일은 스터디 준비를 해야 하므로 제외  
+
+## **출력예제**
+```python
+오프라인 스터디 모임 날짜는 매월 x 일로 선정되었습니다.
+```
+
+## **정답코드**
+```python
+from random import *
+
+date = randint(1, 28)
+print("오프라인 스터디 모임 날짜는 매월 " + str(date) + "일로 선정되었습니다.")
+```
+<br>
 
 ---
 # **`4-1. 문자열(string)`**
@@ -290,6 +315,31 @@ print("Redd\b Apple")
 ```python
 print("Red\tApple")
 # Red     Apple
+```
+<br>
+
+---
+# **`Part 4 퀴즈`**
+사이트별로 비밀번호를 만들어 주는 프로그램을 작성하시오.
+
+예) http://naver.com
+
++ 규칙 1 : http:// 부분은 제외<br>=> naver.com
++ 규칙 2 : 처음 만나는 점(.) 이후 부분은 제외<br>=> naver
++ 규칙 3 : 남은 글자 중 처음 세자리 + 글자 갯수 + 글자 내 'e' 갯수 + "!" 로 구성<br>=> nav + 5 + 1 + !
+
+## **출력예제**
+예) 생성된 비밀번호 : nav51!
+
+## **정답코드**
+```python
+url = "http://naver.com"
+
+rule = url.replace("http://", "")
+rule = rule[:rule.index(".")]
+password = rule[:3] + str(len(rule)) + str(rule.count("n")) + "!"
+
+print(password)
 ```
 <br>
 
@@ -534,6 +584,42 @@ print(menu, type(menu))
 menu = set(menu)
 print(menu, type(menu))
 # {'커피', '우유', '주스'} <class 'set'>
+```
+<br>
+
+---
+# **`Part 5 퀴즈`**
+당신의 학교에서는 파이썬 코딩 대회를 주최합니다.
+참석률을 높이기 위해 댓글 이벤트를 진행하기로 했습니다.
+댓글 작성자들 중에 추첨을 통해 1명은 치킨, 3명은 커피 쿠폰을 받게 됩니다.
+추첨 프로그램을 작성하시오.
+
+조건 1 : 편의상 댓글은 20명이 작성하였고 아이디는 1~20 이라고 가정
+조건 2 : 댓글 내용과 상관 없이 무작위로 추첨하되 중복 불가
+조건 3 : random 모듕ㄹ의 shuffle 과 sample 을 활용
+
+## **출력예제**
+```python
+ -- 당첨자발표 --
+치킨 당첨자 : 1
+커피 당첨자 : [2, 3, 4]
+ -- 축하합니다 --
+```
+
+## **정답코드**
+```python
+from random import *
+
+user = range(1, 21)
+user = list(user)
+
+shuffle(user)
+choosenUser = sample(user, 4)
+
+print(" -- 당첨자발표 --")
+print(f"치킨 당첨자 : {choosenUser[0]}")
+print(f"커피 당첨자 : {choosenUser[1:]}")
+print(" -- 축하합니다 --")
 ```
 <br>
 
@@ -1167,6 +1253,7 @@ import pickle
 
 profile_file = open("profile.pickle", "wb")
 # b(binary) : pickle 을 사용할 때는 항상 binary type 을 정의해주어야 함
+# pickle 에서는 따로 encoding 을 지정해줄 필요가 없음
 
 profile = {"이름":"박명수", "나이":30, "취미":["축구","골프","코딩"]}
 pickle.dump(profile, profile_file)
@@ -1188,4 +1275,27 @@ print(profile) # {'이름': '박명수', '나이': 30, '취미': ['축구', '골
 profile_file.close()
 
 # 그 파일에 있는 내용을 load 를 통해 불러와서 변수에 저장을 해서 계속 사용할 수 있도록 도와주는 라이브러리
+```
+<br>
+
+---
+# **`8-5. with`**
+파일에 대한 처리를 할 때, with 를 사용하여 짧고 간결한 코드로 관리할 수 있습니다.
+```python
+import pickle
+
+with open("profile.pickle", "rb") as profile_file: # pickle 파일 정보를 profile_file 에 저장
+  print(pickle.load(profile_file))
+
+# 따로 open 한 파일에 대해서 close() 를 하지 않아도 with문을 탈출함과 동시에 닫힘
+```
+
+```python
+with open("study.txt", "w", encoding="utf8") as study_file:
+  study_file.write("파이썬을 공부하고 있어요")
+  # ( ) 안의 내용이 입력된 study.txt 생성
+
+with open("study.txt", "r", encoding="utf8") as study_file:
+  print(study_file.read())
+  # 파이썬을 공부하고 있어요
 ```
