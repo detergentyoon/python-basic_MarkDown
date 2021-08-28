@@ -1280,7 +1280,7 @@ profile_file.close()
 
 ---
 # **`8-5. with`**
-파일에 대한 처리를 할 때, with 를 사용하여 짧고 간결한 코드로 관리할 수 있습니다.
+>파일에 대한 처리를 할 때, with 를 사용하여 짧고 간결한 코드로 관리할 수 있습니다.
 ```python
 import pickle
 
@@ -1298,4 +1298,656 @@ with open("study.txt", "w", encoding="utf8") as study_file:
 with open("study.txt", "r", encoding="utf8") as study_file:
   print(study_file.read())
   # 파이썬을 공부하고 있어요
+```
+<br>
+
+---
+# **`Part 8 퀴즈`**
+당신의 회사에서는 매 주 1회 작성해야 하는 보고서가 있습니다.  
+보고서는 항상 아래와 같은 형태로 출력되어야 합니다.  
+```python
+- X 주차 주간보고 -
+부서 :
+이름 :
+업무 요약 :
+```
+1주차부터 50주차까지의 보고서 파일을 만드는 프로그램을 작성하시오.
+
+***조건** : 파일명은 '1주차.txt', '2주차.txt', ... 와 같이 만듭니다.*
+
+## **정답코드**
+```python
+for i in range(1, 51):
+    with open(str(i) + "주차.txt", "w", encoding="utf8") as report_file:
+        report_file.write(f"- {i} 주차 주간보고 -")
+        report_file.write("\n부서 : ")
+        report_file.write("\n이름 : ")
+        report_file.write("\n업무 요약 : ")
+```
+<br>
+
+---
+# **`9-1. 클래스(class)`**
+![class_cookie](./img/class_cookie.png)  
+##### `사진 및 클래스 설명 출처 https://wikidocs.net/28`
+<br>
+
+>클래스란 과자를 만드는 과자 틀과 같은 역할을 합니다.  
+&nbsp;&nbsp;&nbsp;&nbsp; * 과자 틀 → 클래스 (class)  
+&nbsp;&nbsp;&nbsp;&nbsp; * 과자 틀에 의해서 만들어진 과자 → 객체 (object)  
+
+>클래스(class)란 똑같은 무엇인가를 계속해서 만들어 낼 수 있는 설계 도면이고(과자 틀), 객체(object)란 클래스로 만든 피조물(과자 틀을 사용해 만든 과자)을 뜻합니다.
+
+>클래스로 만든 객체는 객체마다 고유한 성격을 가집니다. 과자 틀로 만든 과자에 구멍을 뚫거나 조금 베어 먹더라도 다른 과자에는 아무 영향이 없는 것과 마찬가지로 동일한 클래스로 만든 객체들은 서로 전혀 영향을 주지 않습니다.
+
+## **예제** : 게임 유닛 생성
+```python
+class Unit:
+    def __init__(self, name, hp, damage):
+        self.name = name # self.name 에 name 변수를 저장하여 초기화
+        self.hp = hp
+        self.damage = damage
+        print(f"{self.name} 유닛이 생성되었습니다.")
+        print(f"체력 {self.hp} | 공격력 {self.damage}\n")
+
+marine1 = Unit("마린", 40, 5)
+marine2 = Unit("마린", 40, 5)
+tank = Unit("탱크", 150, 35)
+```
+여기서 마린과 탱크는 Unit class 의 인스턴스(instance)다.' 라고 칭합니다.
+
+<br>
+
+---
+# **`9-2. __init__`**
+>__init__은 python에서 사용되는 생성자 함수입니다. **마린** 혹은 **탱크**와 같은 **어떠한 클래스(class)로부터 만들어지는 객체(object)가 생성될 때 자동으로 호출**됩니다.  
+객체가 생성될 때는 기본적으로 init 함수에 정의된 개수와 동일한 수의 멤버변수 값을 전달해야 합니다. (<u>self 제외</u>)
+
+```python
+class Unit:
+    def __init__(self, name, hp, damage):
+        self.name = name
+        self.hp = hp
+        self.damage = damage
+        print(f"{self.name} 유닛이 생성되었습니다.")
+        print(f"체력 {self.hp} | 공격력 {self.damage}\n")
+
+# Error Ex)
+
+marine3 = Unit("마린")
+# TypeError: __init__() missing 2 required positional arguments: 'hp' and 'damage'
+# 유형 오류: __init__()에 'hp' 및 'damage'라는 두 개의 필수 위치 인수가 없습니다.
+
+marine4 = Unit("마린", 40, 5, "초과")
+# TypeError: __init__() takes 4 positional arguments but 5 were given
+# 유형 오류: __init__() 위치 인수가 4개 있지만 5개가 지정되었습니다.
+```
+<br>
+
+---
+# **`9-3. 멤버 변수(member variable)`**
+>멤버 변수란 `self.name`, `self.hp`, `self.damage` 와 같이 값을 클래스 내에서 임의의 값을 할당할 수 있는 변수를 의미합니다.
+```python
+class Unit:
+    def __init__(self, name, hp, damage):
+        self.name = name
+        self.hp = hp
+        self.damage = damage
+        print(f"{self.name} 유닛이 생성되었습니다.")
+        print(f"체력 {self.hp} | 공격력 {self.damage}\n")
+
+wraith1 = Unit("레이스", 80, 5)
+print(f"유닛 이름 : {wraith1.name}, 공격력 : {wraith1.damage}")
+# 유닛 이름 : 레이스, 공격력 : 5
+```
+`wraith1.name`, `wraith1.damage` 등 `.` 을 통해서 기존에 정의해둔 멤버 변수에 접근할 수 있습니다.
+
+<br>
+
+```python
+wraith2 = Unit("레이스", 80, 5)
+wraith2.clocking = True
+
+if wraith2.clocking == True:
+    print(f"{wraith2.name}는 현재 클로킹 상태입니다.")
+    # 레이스는 현재 클로킹 상태입니다.
+if wraith1.clocking == True:
+    print(f"{wraith2.name}는 현재 클로킹 상태입니다.")
+    # AttributeError: 'Unit' object has no attribute 'clocking'
+```
+`wraith2.clocking` 과 같이 어떠한 객체에 추가적인 변수를 클래스 외부에서 만들어 확장시킬 수 있습니다.
+
+추가 변수 생성을 통해 객체를 확장시키는 동작 또한 기존에 있던 다른 객체에 대해서는 영향을 주지 못합니다.
+
+<br>
+
+---
+# **`9-4. 메소드(method)`**
+```python
+class Unit:
+    def __init__(self, name, hp, damage):
+        self.name = name
+        self.hp = hp
+        self.damage = damage
+        print(f"{self.name} 유닛이 생성되었습니다.")
+        print(f"체력 {self.hp} | 공격력 {self.damage}\n")
+
+# 공격 유닛
+class AttackUnit:
+    def __init__(self, name, hp, damage):
+        self.name = name # name 은 전달받은 인자를 그대로 사용
+        self.hp = hp
+        self.damage = damage
+
+    def attack(self, location):
+        print(f"{self.name} : {location} 방향으로 적군을 공격합니다. [공격력 {self.damage}]")
+        # self.name, self.damage : class 자기 자신에 있는 멤버 변수의 값을 출력,
+        # location : 전달받은 값을 출력
+
+# 메소드 앞에는 무조건 self(자신)를 넣음
+#
+    def damaged(self, damage):
+        print(f"{self.name} : {damage} 데미지를 입었습니다.")
+        self.hp -= damage
+        print(f"{self.name} : 현재 체력은 {self.hp} 입니다.")
+        if self.hp <= 0:
+            print(f"{self.name} : 파괴되었습니다.")
+
+firebat1 = AttackUnit("파이어뱃", 50, 16)
+firebat1.attack("1시")
+
+firebat1.damaged(25)
+firebat1.damaged(25)
+```
+<br>
+
+---
+# **`9-5. 상속`**
+```python
+# 일반 유닛
+class Unit:
+    def __init__(self, name, hp):
+        self.name = name
+        self.hp = hp
+
+# 공격 유닛
+class AttackUnit(Unit):
+    def __init__(self, name, hp, damage):
+        Unit.__init__(self, name, hp)
+        self.damage = damage
+
+    def attack(self, location):
+        print(f"{self.name} : {location} 방향으로 적군을 공격합니다. [공격력 {self.damage}]")
+
+    def damaged(self, damage):
+        print(f"{self.name} : {damage} 데미지를 입었습니다.")
+        self.hp -= damage
+        print(f"{self.name} : 현재 체력은 {self.hp} 입니다.")
+        if self.hp <= 0:
+            print(f"{self.name} : 파괴되었습니다.")
+
+firebat1 = AttackUnit("파이어뱃", 50, 16)
+firebat1.attack("1시")
+
+firebat1.damaged(25)
+firebat1.damaged(25)
+```
+<br>
+
+---
+# **`9-6. 다중 상속`**
+```python
+# 일반 유닛
+class Unit:
+    def __init__(self, name, hp):
+        self.name = name
+        self.hp = hp
+
+# 공격 유닛
+class AttackUnit(Unit):
+    def __init__(self, name, hp, damage):
+        Unit.__init__(self, name, hp)
+        self.damage = damage
+
+    def attack(self, location):
+        print(f"{self.name} : {location} 방향으로 적군을 공격합니다. [공격력 {self.damage}]")
+
+    def damaged(self, damage):
+        print(f"{self.name} : {damage} 데미지를 입었습니다.")
+        self.hp -= damage
+        print(f"{self.name} : 현재 체력은 {self.hp} 입니다.")
+        if self.hp <= 0:
+            print(f"{self.name} : 파괴되었습니다.")
+
+# 날 수 있는 기능을 가진 클래스
+class Flyable:
+    def __init__(self, flying_speed):
+        self.flying_speed = flying_speed
+
+    def fly(self, name, location):
+        print(f"{name} : {location} 방향으로 날아갑니다. [속도 : {self.flying_speed}]")
+
+# 공중 공격 유닛 클래스
+class FlyableAttackUnit(AttackUnit, Flyable):
+    def __init__(self, name, hp, damage, flying_speed):
+        AttackUnit.__init__(self, name, hp, damage)
+        Flyable.__init__(self, flying_speed)
+
+valkyrie = FlyableAttackUnit("발키리", 200, 6, 5)
+valkyrie.fly(valkyrie.name, "3시")
+```
+`AttackUnit` = `Unit` 상속  
+`FlyableAttackUnit` = `AttackUnit` + `Flyable` 다중 상속
+
+<br>
+
+---
+# **`9-7. 메소드 오버라이딩`**
+>부모 클래스에서 정의한 메소드가 아닌 **자식 클래스에서 정의한 메소드를 새롭게 정의해서 사용**할 수 있는데 이를 메소드 오버라이딩이라고 합니다.
+```python
+# 일반 유닛
+class Unit:
+    def __init__(self, name, hp, speed):
+        self.name = name
+        self.hp = hp
+        self.speed = speed
+
+    def move(self, location):
+        print("[지상 유닛 이동]")
+        print(f"{self.name} : {location} 방향으로 이동합니다. [속도 {self.speed}]")
+
+# 공격 유닛
+class AttackUnit(Unit):
+    def __init__(self, name, hp, speed, damage):
+        Unit.__init__(self, name, hp, speed)
+        self.damage = damage
+
+    def attack(self, location):
+        print(f"{self.name} : {location} 방향으로 적군을 공격합니다. [공격력 {self.damage}]")
+
+    def damaged(self, damage):
+        print(f"{self.name} : {damage} 데미지를 입었습니다.")
+        self.hp -= damage
+        print(f"{self.name} : 현재 체력은 {self.hp} 입니다.")
+        if self.hp <= 0:
+            print(f"{self.name} : 파괴되었습니다.")
+
+# 날 수 있는 기능을 가진 클래스
+class Flyable:
+    def __init__(self, flying_speed):
+        self.flying_speed = flying_speed
+
+    def fly(self, name, location):
+        print(f"{name} : {location} 방향으로 날아갑니다. [속도 : {self.flying_speed}]")
+
+# 공중 공격 유닛 클래스
+class FlyableAttackUnit(AttackUnit, Flyable):
+    def __init__(self, name, hp, damage, flying_speed):
+        AttackUnit.__init__(self, name, hp, 0, damage) # 지상 speed : 0
+        Flyable.__init__(self, flying_speed)
+
+    # move() 재정의
+    def move(self, location):
+        print("[공중 유닛 이동]")
+        self.fly(self.name, location)
+
+vulture = AttackUnit("벌쳐", 80, 10, 20)
+battlecrusier = FlyableAttackUnit("배틀크루저", 500, 25, 3)
+
+vulture.move("11시")
+battlecrusier.move("9시")
+```
+`Unit`에 `move()` 함수 추가  
+
+`Unit을 상속받은 AttackUnit`이 이동 => `Unit에서 정의한 move()` 함수 호출  
+
+`AttackUnit을 상속받는 FlyableAttackUnit`이 이동 => `Unit에서 정의한 move()` 함수가 호출되는 것이 아니라, `FlyableAttackUnit에서 새로 정의한 move()` 함수가 호출됨.
+
+<br>
+
+---
+# **`9-8. pass`**
+>`pass`는 함수의 실제 logic은 생략시키지만 함수가 완성된 것 처럼 호출할 수 있게끔 만들어줍니다.
+```python
+def game_start():
+    print("[알림] 새로운 게임 시작")
+
+def game_over():
+    pass
+
+game_start() # [알림] 새로운 게임 시작
+game_over() # 출력 없음
+```
+<br>
+
+---
+# **`9-9. super`**
+>자신이 상속받는 부모 클래스의 멤버 변수를 초기화시킬 때 super를 통하여 부모 클래스명 대신 사용할 수 있습니다.
+
+`super`는 `.__init__` 이전에 ( ) 를 붙이고, 멤버 변수에 `self`를 사용하지 않습니다.
+```python
+# 건물 생성
+class BuildingUnit(Unit):
+    def __init__(self, name, hp, location):
+        # Unit.__init__(self, name, hp, 0)     => 기존의 Unit 을 이용한 __init__
+        super().__init__(name, hp, 0) # super 를 통한 __init__은 멤버 변수에서 self를 제외
+        self.location = location
+```
+
+<br>
+
+`super`는 2개 이상의 부모 클래스를 **다중 상속받을 때는 순서 상의 맨 처음에 상속받는 클래스에 대해서만** `__init__` 함수가 호출됩니다.
+### **다중 상속 못받는 super**
+```python
+class Unit:
+    def __init__(self):
+        print("Unit 생성자")
+
+class Flyable:
+    def __init__(self):
+        print("Flyable 생성자")
+
+class FlyableUnit(Unit, Flyable):
+    def __init__(self):
+        super().__init__()
+
+dropship = FlyableUnit()
+    # Unit 생성자
+```
+### **다중 상속을 받기 위해선 super 사용 x**
+```python
+class Unit:
+    def __init__(self):
+        print("Unit 생성자")
+
+class Flyable:
+    def __init__(self):
+        print("Flyable 생성자")
+
+class FlyableUnit(Unit, Flyable):
+    def __init__(self):
+    Unit.__init__(self) # 다중 상속의 경우 super 를 사용하지 않고 따로 명시
+    Flyable.__init__(self)
+
+dropship = FlyableUnit()
+    # Unit 생성자
+    # Flyable 생성자
+```
+<br>
+
+---
+# **`9-10. Starcraft.txt 프로젝트`**
+## **유닛 생성, 제어 프로세스**
+```python
+from random import *
+
+# 일반 유닛
+class Unit:
+    def __init__(self, name, hp, speed):
+        self.name = name
+        self.hp = hp
+        self.speed = speed
+        print(f"{name} 유닛이 생성되었습니다.")
+
+    def move(self, location):
+        print(f"{self.name} : {location} 방향으로 이동합니다. [속도 {self.speed}]")
+
+    def damaged(self, damage):
+        print(f"{self.name} : {damage} 데미지를 입었습니다.")
+        self.hp -= damage
+        print(f"{self.name} : 현재 체력은 {self.hp} 입니다.")
+        if self.hp <= 0:
+            print(f"{self.name} : 파괴되었습니다.")
+
+# 공격 유닛
+class AttackUnit(Unit):
+    def __init__(self, name, hp, speed, damage):
+        Unit.__init__(self, name, hp, speed)
+        self.damage = damage
+
+    def attack(self, location):
+        print(f"{self.name} : {location} 방향으로 적군을 공격합니다. [공격력 {self.damage}]")
+
+# 마린
+class Marine(AttackUnit):
+    def __init__(self):
+        AttackUnit.__init__(self, "마린", 40, 1, 5)
+    
+    # 스팀팩 : 일정 시간 동안 이동 및 공격 속도 증가, 체력 10 감소
+    def stimpack(self):
+        if self.hp > 10:
+            self.hp -= 10
+            print(f"{self.name} : 스팀팩을 사용합니다. (HP 10 감소)")
+        else:
+            print(f"{self.name} : 체력이 부족하여 스팀팩을 사용할 수 없습니다.")
+
+# 탱크
+class Siege_Tank(AttackUnit):
+    siege_mode_developed = False # 시즈모드 개발 여부
+
+    def __init__(self):
+        AttackUnit.__init__(self, "시즈탱크", 150, 1, 35)
+        self.siege_mode = False
+
+    # 시즈모드 : 피해량 2배 증가
+    def setSiegeMode(self):
+        if Siege_Tank.siege_mode_developed == False:
+            return
+
+        # 시즈모드 비활성화 상태 => 시즈모드 활성화
+        if self.siege_mode == False:
+            print(f"{self.name} : 시즈모드로 전환합니다.")
+            self.damage *= 2
+            self.siege_mode = True
+        # 시즈모드 활성화 상태 => 시즈모드 비활성화
+        elif self.siege_mode == True:
+            print(f"{self.name} : 시즈모드를 해제합니다.")
+            self.damage /= 2
+            self.siege_mode = False
+
+        print(f"시즈모드를 활성화합니다. (이동 불가)")
+
+# 공중 유닛
+class Flyable:
+    def __init__(self, flying_speed):
+        self.flying_speed = flying_speed
+
+    def fly(self, name, location):
+        print(f"{name} : {location} 방향으로 날아갑니다. [속도 : {self.flying_speed}]")
+
+# 공중 공격 유닛
+class FlyableAttackUnit(AttackUnit, Flyable):
+    def __init__(self, name, hp, damage, flying_speed):
+        AttackUnit.__init__(self, name, hp, 0, damage) # 지상 speed : 0
+        Flyable.__init__(self, flying_speed)
+
+    def move(self, location):
+        self.fly(self.name, location)
+
+# 레이스
+class Wraith(FlyableAttackUnit):
+    def __init__(self):
+        FlyableAttackUnit.__init__(self, "레이스", 80, 20, 5)
+        self.clocked = False # 클로킹 모드 (해제 상태)
+
+    def clocking(self):
+        if self.clocked == True: # 클로킹 활성화 상태   => 클로킹 비활성화
+            print(f"{self.name} : 클로킹 모드를 해제합니다.")
+            self.clocked = False
+        else: # 클로킹 비활성화 상태   => 클로킹 활성화
+            print(f"{self.name} : 클로킹 모드로 전환합니다.")
+            self.clocked = True
+
+def game_start():
+    print("[알림] 새로운 게임을 시작합니다.\n")
+
+def game_over():
+    print("Player : gg")
+    print("[Player] 님이 게임에서 퇴장하셨습니다.")
+    print("\n\t┌────────────────────┐")
+    print("\t│      VICTORY !     │")
+    print("\t└────────────────────┘")
+```
+<br>
+
+## **임의 게임 진행 프로세스**
+```python
+# 게임 시작
+game_start()
+
+# 마린 3기 생성
+m1 = Marine()
+m2 = Marine()
+m3 = Marine()
+
+# 시즈탱크 2기 생성
+t1 = Siege_Tank()
+t2 = Siege_Tank()
+
+# 레이스 1기 생성
+w1 = Wraith()
+
+# 유닛들을 소대 단위로 일괄 제어 (생성된 모든 유닛 append)
+attack_units = []
+attack_units.append(m1)
+attack_units.append(m2)
+attack_units.append(m3)
+attack_units.append(t1)
+attack_units.append(t2)
+attack_units.append(w1)
+
+# 소대 이동
+for unit in attack_units:
+    unit.move("1시")
+
+# 탱크 시즈모드 개발
+Siege_Tank.siege_mode_developed = True
+print("[알림] 탱크 시즈 모드 개발이 완료되었습니다.")
+
+# 공격 모드 준비 (마린 : 스팀팩 사용, 탱크 : 시즈모드 활성화, 레이스 : 클로킹 활성화)
+for unit in attack_units:
+    if isinstance(unit, Marine): # 유닛이 Marine 이면:
+        unit.stimpack()
+    elif isinstance(unit, Siege_Tank):
+        unit.setSiegeMode()
+    elif isinstance(unit, Wraith):
+        unit.clocking()
+
+# 소대 공격 (어택땅)
+for unit in attack_units:
+    unit.attack("1시")
+
+# 소대가 전투 중 당하는 무작위 피해
+for unit in attack_units:
+    unit.damaged(randint(5, 30)) # 공격은 랜덤으로 받음 (5 ~ 30)
+
+# 게임 종료
+game_over()        
+```
+<br>
+
+## **출력예시**
+```python
+[알림] 새로운 게임을 시작합니다.
+
+마린 유닛이 생성되었습니다.
+마린 유닛이 생성되었습니다.
+마린 유닛이 생성되었습니다.
+시즈탱크 유닛이 생성되었습니다.
+시즈탱크 유닛이 생성되었습니다.
+레이스 유닛이 생성되었습니다.
+마린 : 1시 방향으로 이동합니다. [속도 1]
+마린 : 1시 방향으로 이동합니다. [속도 1]
+마린 : 1시 방향으로 이동합니다. [속도 1]
+시즈탱크 : 1시 방향으로 이동합니다. [속도 1]
+시즈탱크 : 1시 방향으로 이동합니다. [속도 1]
+레이스 : 1시 방향으로 날아갑니다. [속도 : 5]
+[알림] 탱크 시즈 모드 개발이 완료되었습니다.
+마린 : 스팀팩을 사용합니다. (HP 10 감소)
+마린 : 스팀팩을 사용합니다. (HP 10 감소)
+마린 : 스팀팩을 사용합니다. (HP 10 감소)
+시즈탱크 : 시즈모드로 전환합니다.
+시즈모드를 활성화합니다. (이동 불가)
+시즈탱크 : 시즈모드로 전환합니다.
+시즈모드를 활성화합니다. (이동 불가)
+레이스 : 클로킹 모드로 전환합니다.
+마린 : 1시 방향으로 적군을 공격합니다. [공격력 5]
+마린 : 1시 방향으로 적군을 공격합니다. [공격력 5]
+마린 : 1시 방향으로 적군을 공격합니다. [공격력 5]
+시즈탱크 : 1시 방향으로 적군을 공격합니다. [공격력 70]
+시즈탱크 : 1시 방향으로 적군을 공격합니다. [공격력 70]
+레이스 : 1시 방향으로 적군을 공격합니다. [공격력 20]
+마린 : 17 데미지를 입었습니다.
+마린 : 현재 체력은 13 입니다.
+마린 : 30 데미지를 입었습니다.
+마린 : 현재 체력은 0 입니다.
+마린 : 파괴되었습니다.
+마린 : 5 데미지를 입었습니다.
+마린 : 현재 체력은 25 입니다.
+시즈탱크 : 15 데미지를 입었습니다.
+시즈탱크 : 현재 체력은 135 입니다.
+시즈탱크 : 24 데미지를 입었습니다.
+시즈탱크 : 현재 체력은 126 입니다.
+레이스 : 14 데미지를 입었습니다.
+레이스 : 현재 체력은 66 입니다.
+Player : gg
+[Player] 님이 게임에서 퇴장하셨습니다.
+
+        ┌────────────────────┐
+        │      VICTORY !     │
+        └────────────────────┘
+```
+<br>
+
+---
+# **`Part 9 퀴즈`**
+주어진 코드를 활용하여 부동산 프로그램을 작성하시오.
+
+## **출력예제**
+```python
+총 3대의 매물이 있습니다.
+강남 아파트 매매 10억 2010년
+마포 오피스텔 전세 5억 2007년
+송파 빌라 월세 500/50 2000년
+```
+
+## **힌트코드**
+```python
+class House :
+    # 매물 초기화
+    def __init__(self, location, house_type, deal_type, price, completion_year):
+        pass
+
+    # 매물 정보 표시
+    def show_detail(self):
+        pass
+```
+
+## **정답코드**
+```python
+class House :
+    # 매물 초기화
+    def __init__(self, location, house_type, deal_type, price, completion_year):
+        self.location = location
+        self.house_type = house_type
+        self.deal_type = deal_type
+        self.price = price
+        self.completion_year = completion_year
+
+    # 매물 정보 표시
+    def show_detail(self):
+        print(f"{self.location} {self.house_type} {self.deal_type} {self.price} {self.completion_year}")
+
+houses = []
+house1 = House("강남", "아파트", "매매", "10억", "2010년")
+house2 = House("마포", "오피스텔", "전세", "5억", "2007년")
+house3 = House("송파", "빌라", "월세", "500/50", "2000년")
+
+houses.append(house1)
+houses.append(house2)
+houses.append(house3)
+
+print(f"총 {len(houses)}대의 매물이 있습니다.")
+for house in houses:
+    house.show_detail()
 ```
