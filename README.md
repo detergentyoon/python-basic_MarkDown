@@ -1951,3 +1951,188 @@ print(f"총 {len(houses)}대의 매물이 있습니다.")
 for house in houses:
     house.show_detail()
 ```
+<br>
+
+---
+# **`10-1. 예외처리`**
+>어떠한 에러가 발생했을 때 그것에 대해 처리를 해주는 것을 예외처리라고 합니다.  
+`try:` 내에서 logic 을 구성하고, 그 외의 에러와 같은 의도치 않은 결과값에 대해서는 `except err_name:` 의 형식으로 구성합니다. 
+
+<br>
+
+## **나누기용 계산기 에러 처리**
+```python
+try:
+    nums = []
+    nums.append(int(input("첫 번째 숫자를 입력하세요 : ")))
+    nums.append(int(input("두 번째 숫자를 입력하세요 : ")))
+    nums.append(int(nums[0] / nums[1]))
+    print(f"{nums[0]} / {nums[1]} = {nums[2]}")
+except ValueError:
+    print("에러! 잘못된 값을 입력하였습니다.")
+except ZeroDivisionError as err:
+    print(err)
+```
+```python
+# ValueError
+첫 번째 숫자를 입력하세요 : 삼
+에러! 잘못된 값을 입력하였습니다. 
+```
+```python
+# ZeroDivisionError
+첫 번째 숫자를 입력하세요 : 5
+두 번째 숫자를 입력하세요 : 0
+division by zero
+```
+<br>
+
+## **만약 나누기 계산을 구현하는 코드를 빼서 오류가 나는 경우** 
+```python
+try:
+    nums = []
+    nums.append(int(input("첫 번째 숫자를 입력하세요 : ")))
+    nums.append(int(input("두 번째 숫자를 입력하세요 : ")))
+    # nums.append(int(nums[0] / nums[1]))
+    print(f"{nums[0]} / {nums[1]} = {nums[2]}")
+
+except ValueError:
+    print("에러! 잘못된 값을 입력하였습니다.")
+except ZeroDivisionError as err:
+    print(err)
+except Exception as err: # ValueError 와 ZeroDivisionError 를 제외한 모든 에러를 취급
+    print("알 수 없는 에러가 발생하였습니다.")
+    print(err)
+```
+```python
+첫 번째 숫자를 입력하세요 : 10
+두 번째 숫자를 입력하세요 : 2
+알 수 없는 에러가 발생하였습니다.
+list index out of range
+```
+<br>
+
+---
+# **`10-2. 에러 발생시키기`**
+## **한 자리 숫자만 나누는 계산기**
+```python
+try:
+    num1 = int(input("첫 번째 숫자를 입력하세요 : "))
+    num2 = int(input("두 번째 숫자를 입력하세요 : "))
+    if num1 >= 10 or num2 >= 10:
+        raise ValueError # raise 를 통해 에러를 발생시킬 수 있음
+    print(f"{num1} / {num2} = {int(num1 / num2)}")
+
+except ValueError:
+    print("잘못된 값을 입력하였습니다. 한 자리 숫자만 입력하세요")
+```
+```python
+첫 번째 숫자를 입력하세요 : 10
+두 번째 숫자를 입력하세요 : 6
+잘못된 값을 입력하였습니다. 한 자리 숫자만 입력하세요
+```
+<br>
+
+---
+# **`10-3. 사용자 정의 예외처리`**
+```python
+class BigNumberError(Exception):
+    pass
+
+try:
+    num1 = int(input("첫 번째 숫자를 입력하세요 : "))
+    num2 = int(input("두 번째 숫자를 입력하세요 : "))
+    if num1 >= 10 or num2 >= 10:
+        raise BigNumberError
+    print(f"{num1} / {num2} = {int(num1 / num2)}")
+
+except ValueError:
+    print("잘못된 값을 입력하였습니다. 한 자리 숫자만 입력하세요")
+except BigNumberError:
+    print("에러가 발생하였습니다. 한 자리 숫자만 입력하세요.")
+```
+```python
+첫 번째 숫자를 입력하세요 : 10
+두 번째 숫자를 입력하세요 : 5
+에러가 발생하였습니다. 한 자리 숫자만 입력하세요.
+```
+
+<br>
+
+## **BigNumberError에 메세지 추가하기**
+
+```python
+# message process
+class BigNumberError(Exception):
+    def __init__(self, msg):
+        self.msg = msg
+
+    def __str__(self):
+        return self.msg
+
+try:
+    num1 = int(input("첫 번째 숫자를 입력하세요 : "))
+    num2 = int(input("두 번째 숫자를 입력하세요 : "))
+    if num1 >= 10 or num2 >= 10:
+        raise BigNumberError(f"입력값 : {num1}, {num2}") # 메세지 넣기
+    print(f"{num1} / {num2} = {int(num1 / num2)}")
+
+except ValueError:
+    print("잘못된 값을 입력하였습니다. 한 자리 숫자만 입력하세요")
+except BigNumberError as err: # as err 로 오류를 받아서 print 로 출력
+    print("에러가 발생하였습니다. 한 자리 숫자만 입력하세요.")
+    print(err)
+```
+```python
+첫 번째 숫자를 입력하세요 : 10
+두 번째 숫자를 입력하세요 : 5
+에러가 발생하였습니다. 한 자리 숫자만 입력하세요.
+입력값 : 10, 5
+```
+`BigNumberError` 가 발생했을 때, 정의한 메세지를 `BigNumberError 클래스의 msg` 에 저장해두었다가, `except BigNumberError` 가 출력될 때 오류 메세지를 `err` 에 받아서 출력
+
+<br>
+
+# **`finally`**
+>`finally`는 예외처리 중에 출력이 정상적으로 수행이 되건, 오류가 발생하건에 관계없이 무조건 실행되는 구문입니다.  
+오류가 발생했을 때 finally 를 통해 프로그램이 강제종료되는 것을 막아 프로그램이 더 완성도 높게 만들어질 수 있도록 해줍니다.  
+try 문의 맨 마지막에 입력하여 사용합니다.
+```python
+############################# P R O C E S S #############################
+class BigNumberError(Exception):
+    def __init__(self, msg):
+        self.msg = msg
+
+    def __str__(self):
+        return self.msg
+
+try:
+    num1 = int(input("첫 번째 숫자를 입력하세요 : "))
+    num2 = int(input("두 번째 숫자를 입력하세요 : "))
+    if num1 >= 10 or num2 >= 10:
+        raise BigNumberError(f"입력값 : {num1}, {num2}")
+    print(f"{num1} / {num2} = {int(num1 / num2)}")
+
+except ValueError:
+    print("잘못된 값을 입력하였습니다. 한 자리 숫자만 입력하세요")
+except BigNumberError as err:
+    print("에러가 발생하였습니다. 한 자리 숫자만 입력하세요.")
+    print(err)
+########################################################################
+
+finally:
+    print("계산기를 이용해주셔서 감사합니다.")
+```
+```python
+# Normal output
+첫 번째 숫자를 입력하세요 : 9
+두 번째 숫자를 입력하세요 : 3
+9 / 3 = 3
+계산기를 이용해주셔서 감사합니다.
+
+# Error
+첫 번째 숫자를 입력하세요 : 10
+두 번째 숫자를 입력하세요 : 5
+에러가 발생하였습니다. 한 자리 숫자만 입력하세요.
+입력값 : 10, 5
+계산기를 이용해주셔서 감사합니다.
+```
