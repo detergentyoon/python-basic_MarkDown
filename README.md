@@ -1042,7 +1042,7 @@ print(f"키 {height}cm {gender}의 표준 체중은 {weight:.2f}kg입니다.")
 
 ---
 # **`8-1. 표준 입출력`**
-## **sys**
+## **`sys`**
 ```python
 import sys
 
@@ -1057,7 +1057,7 @@ VScode의 터미널에서는 두 출력문의 차이가 없는 것처럼 보이�
   + 만약 로그 처리를 하는 경우에는 에러(stderr)를 확인하고 따로 처리  
 <br>
 
-## **ljust() & rjust()**
+## **`ljust()` & `rjust()`**
 >ljust() : n칸의 공백을 생성하고 좌측 정렬  
 rjust() : n칸의 공백을 생성하고 우측 정렬
 ```python
@@ -1070,7 +1070,7 @@ for subject, score in scores.items():
 # 영어      :  50
 # 코딩      : 100
 ```
-## **zfill()**
+## **`zfill()`**
 >zfill()은 입력한 int값 만큼 비어있는 자릿 수마다 0을 생성합니다.
 ```python
 for num in range(1, 11):
@@ -1083,7 +1083,7 @@ for num in range(1, 11):
 # 대기번호 : 009
 # 대기번호 : 010
 ```
-## **input**
+## **`input`**
 >사용자입력(input)을 통해서 값을 받게되면 그 값이 어떤 형태의 자료형이라도 항상 문자열(str) 형태로 저장됩니다.
 ```python
 answer = input("아무 값이나 입력하세요 : ")
@@ -1193,7 +1193,7 @@ score_file.close()
 # 영어 : 50
 # 과학 : 80코딩 : 100
 ```
-## **예제 3-2** : readline()
+## **예제 3-2** : `readline()`
 ```python
 score_file = open("score.txt", "r", encoding="utf8")
 
@@ -1210,7 +1210,7 @@ score_file.close()
 # 과학 : 80코딩 : 100
 #
 ```
-## **예제 4-1** while문을 통한 readline() 간편 제어
+## **예제 4-1** `while`문을 통한 `readline()` 간편 제어
 ```python
 score_file = open("score.txt", "r", encoding="utf8")
 
@@ -1226,7 +1226,7 @@ score_file.close()
 # 영어 : 50
 # 과학 : 80코딩 : 100
 ```
-## **예제 4-2** readlines() 와 for문을 통한 간편 제어
+## **예제 4-2** `readlines()` 와 `for`문을 통한 간편 제어
 >readlines() 는 파일 내용을 줄마다 list 형태로 저장합니다. 
 ```python
 score_file = open("score.txt", "r", encoding="utf8")
@@ -1247,7 +1247,7 @@ score_file.close()
 # **`8-4. Pickle`**
 >프로그램 상에서 내가 사용하고 있는 데이터를 file 형태로 저장해주는 것으로, 저장한 파일을 누군가에게 전달했을 때 파일 수신자가 파일을 열고 Pickle을 이용해 데이터를 불러와서 데이터를 재사용할 수 있게끔 도와주는 기능을 탑재한 라이브러리입니다.
 
-## **예제 1** : Pickle 을 이용하여 데이터를 파일에 저장
+## **예제 1** : `Pickle` 을 이용하여 데이터를 파일에 저장
 ```python
 import pickle
 
@@ -1263,7 +1263,7 @@ profile_file.close()
 
 ### 즉, 내가 가진 정보를 피클을 이용해서 어떤 파일에 저장하는 과정 ###
 ```
-## **예제 2** : Pickle 을 이용하여 파일에서 데이터 추출
+## **예제 2** : `Pickle` 을 이용하여 파일에서 데이터 추출
 ```python
 import pickle
 
@@ -1280,7 +1280,7 @@ profile_file.close()
 
 ---
 # **`8-5. with`**
->파일에 대한 처리를 할 때, with 를 사용하여 짧고 간결한 코드로 관리할 수 있습니다.
+>파일에 대한 처리를 할 때, `with` 를 사용하여 짧고 간결한 코드로 관리할 수 있습니다.
 ```python
 import pickle
 
@@ -1354,14 +1354,15 @@ marine1 = Unit("마린", 40, 5)
 marine2 = Unit("마린", 40, 5)
 tank = Unit("탱크", 150, 35)
 ```
-여기서 마린과 탱크는 Unit class 의 인스턴스(instance)다.' 라고 칭합니다.
+여기서 `마린과 탱크는 Unit class 의 인스턴스(instance)다.` 라고 칭합니다.
 
 <br>
 
 ---
-# **`9-2. __init__`**
->__init__은 python에서 사용되는 생성자 함수입니다. **마린** 혹은 **탱크**와 같은 **어떠한 클래스(class)로부터 만들어지는 객체(object)가 생성될 때 자동으로 호출**됩니다.  
-객체가 생성될 때는 기본적으로 init 함수에 정의된 개수와 동일한 수의 멤버변수 값을 전달해야 합니다. (<u>self 제외</u>)
+# **`9-2. `__init__`**
+>`__init__`은 python에서 사용되는 생성자 함수입니다. **마린** 혹은 **탱크**와 같은 **어떠한 클래스(class)로부터 만들어지는 객체(object)가 생성될 때 자동으로 호출**됩니다.  
+
+>객체가 생성될 때는 기본적으로 `init` 함수에 정의된 개수와 동일한 수의 멤버변수 값을 전달해야 합니다. (<u>`self` 제외</u>)
 
 ```python
 class Unit:
@@ -1622,7 +1623,7 @@ game_over() # 출력 없음
 
 ---
 # **`9-9. super`**
->자신이 상속받는 부모 클래스의 멤버 변수를 초기화시킬 때 super를 통하여 부모 클래스명 대신 사용할 수 있습니다.
+>자신이 상속받는 부모 클래스의 멤버 변수를 초기화시킬 때 `super`를 통하여 부모 클래스명 대신 사용할 수 있습니다.
 
 `super`는 `.__init__` 이전에 ( ) 를 붙이고, 멤버 변수에 `self`를 사용하지 않습니다.
 ```python
@@ -1956,7 +1957,8 @@ for house in houses:
 ---
 # **`10-1. 예외처리`**
 >어떠한 에러가 발생했을 때 그것에 대해 처리를 해주는 것을 예외처리라고 합니다.  
-`try:` 내에서 logic 을 구성하고, 그 외의 에러와 같은 의도치 않은 결과값에 대해서는 `except err_name:` 의 형식으로 구성합니다. 
+
+>`try:` 내에서 logic 을 구성하고, 그 외의 에러와 같은 의도치 않은 결과값에 대해서는 `except err_name:` 의 형식으로 구성합니다. 
 
 <br>
 
@@ -2045,8 +2047,6 @@ try:
         raise BigNumberError
     print(f"{num1} / {num2} = {int(num1 / num2)}")
 
-except ValueError:
-    print("잘못된 값을 입력하였습니다. 한 자리 숫자만 입력하세요")
 except BigNumberError:
     print("에러가 발생하였습니다. 한 자리 숫자만 입력하세요.")
 ```
@@ -2093,9 +2093,11 @@ except BigNumberError as err: # as err 로 오류를 받아서 print 로 출력
 <br>
 
 # **`finally`**
->`finally`는 예외처리 중에 출력이 정상적으로 수행이 되건, 오류가 발생하건에 관계없이 무조건 실행되는 구문입니다.  
-오류가 발생했을 때 finally 를 통해 프로그램이 강제종료되는 것을 막아 프로그램이 더 완성도 높게 만들어질 수 있도록 해줍니다.  
-try 문의 맨 마지막에 입력하여 사용합니다.
+>`finally`는 예외처리 중에 출력이 정상적으로 수행이 되건, 오류가 발생하건에 관계없이 무조건 실행되는 구문입니다.
+
+>오류가 발생했을 때 `finally` 를 통해 프로그램이 강제종료되는 것을 막아 프로그램이 더 완성도 높게 만들어질 수 있도록 해줍니다.
+
+>`try`문의 맨 마지막에 입력하여 사용합니다.
 ```python
 ############################# P R O C E S S #############################
 class BigNumberError(Exception):
@@ -2135,4 +2137,221 @@ finally:
 에러가 발생하였습니다. 한 자리 숫자만 입력하세요.
 입력값 : 10, 5
 계산기를 이용해주셔서 감사합니다.
+```
+<br>
+
+---
+# **`Part 10 퀴즈`**
+동네에 항상 대기 손님이 있는 맛있는 치킨집이 있습니다.  
+대기 손님의 치킨 요리 시간을 줄이고자 자동 주문 시스템을 제작하였습니다.  
+시스템 코드를 확인하고 적절한 예외처리 구문을 넣으시오.
+
+***조건 1** : 1보다 작거나 숫자가 아닌 입력값이 들어올 때는 `ValueError` 로 처리*
+
+***출력 메세지***
+```python
+잘못된 값을 입력하였습니다
+```
+
+***조건 2** : 대기 손님이 주문할 수 있는 총 치킨량은 10마리로 한정  
+　　　&nbsp;&nbsp;치킨 소진 시 사용자 정의 에러 `SoldOutError` 를 발생시키고 프로그램 종료*
+
+***출력 메세지***
+```python&nasp;
+재고가 소진되어 더 이상 주문을 받지 않습니다.
+```
+## **샘플 코드**
+```python
+chicken = 10
+waiting = 1 # 홀 안에는 현재 만석. 대기번호 1부터 시작
+
+while(True):
+    print(f"[남은 치킨 : {chicken}]")
+    order = int(input("치킨 몇 마리주문하시겠습니까?"))
+    if order > chicken: # 남은치킨보다 주문량이 많을 때
+        print("재료가 부족합니다.")
+    else:
+        print(f"[대기번호 {waiting}]{order} 마리 주문이완료되었습니다.")
+        waiting += 1
+        chicken -= order
+```
+## **정답 코드**
+```python
+class SoldOutError(Exception):
+    pass
+
+chicken = 10
+waiting = 1
+
+while(True):
+    try:
+        print(f"\n[남은 치킨 : {chicken}]")
+        order = int(input("치킨 몇 마리 주문하시겠습니까?  "))
+        if order > chicken:
+            print("재료가 부족합니다.")
+        elif order < 1:
+            raise ValueError
+        else:
+            print(f"[대기번호 {waiting}] {order} 마리 주문이 완료되었습니다.")
+            waiting += 1
+            chicken -= order
+            if chicken == 0:
+                raise SoldOutError
+    except ValueError:
+        print("잘못된 값을 입력하였습니다.")
+    except SoldOutError:
+        print("재고가 소진되어 더 이상 주문을 받지 않습니다.")
+        break
+```
+<br>
+
+---
+# **`11-1. 모듈 module`**
+>`모듈`은 자동차의 부품과 같이 범퍼가 파손되면 범퍼만 따로 고치고, 엔진이 고장나면 엔진만 따로 고치는 것처럼 필요한 것들 끼리 부품처럼 잘 만들어놓은 파일을 `모듈`이라 하며, 이 과정을 거치는 것을 `모듈화`라고 합니다.
+
+>Python에서는 function 정의나 class 등의 Python의 문장들을 담고있는 파일을 모듈이라 합니다.
+
+>모듈은 모듈을 사용하려는 파일과 같은 경로에 있거나 python 라이브러리들이 모여있는 폴더에 있어야 사용이 가능합니다.
+
+>모듈은 `.py` 를 확장자로 취급합니다.
+
+<br>
+
+## **모듈 생성**
+```python
+######################## [ theater_module.py ] ########################
+
+# 일반 가격
+def price(people):
+  print(f"{people}명 가격은 {people * 10000}원 입니다.")
+
+# 조조 할인 가격
+def price_morning(people):
+  print(f"{people}명 조조 할인 가격은 {people * 6000}원 입니다.")
+
+# 군인 할인 가격
+def price_soldier(people):
+  print(f"{people}명 군인 할인 가격은 {people * 4000}원 입니다.")
+```
+## **`import` 호출**
+```python
+import theater_module
+theater_module.price(3)
+theater_module.price_morning(3)
+theater_module.price_soldier(3)
+
+# 혹은 아래 코드와 같이 `as 별명` 으로 호출
+
+import theater_module as mv
+mv.price(3)
+mv.price_morning(3)
+mv.price_soldier(3)
+```
+## **`from` 호출**
+```python
+from theater_module import * # 모두 사용
+price(3)
+price_morning(3)
+price_soldier(3)
+
+# or
+
+from theater_module import price, price_morning # price, price_morning 만  사용
+price(3)
+price_morning(3)
+price_soldier(3) # NameError: name 'price_soldier' is not defined
+
+# or
+
+from theater_module import price_soldier as price
+price(3)
+```
+<br>
+
+# **`패키지(package)`**
+>`패키지`는 `모듈`들을 모아놓은 집합으로, 하나의 디렉토리에 여러 모듈 파일들을 모아둔 것을 의미합니다.
+
+<br>
+
+## **패키지 구성 예시**
+```python
+travel # 폴더 생성
+  > __init__.py
+  > thailand.py
+  > vietnam.py
+```
+```python
+# thailand.py process
+class ThailandPackage:
+    def detail(self):
+        print("[태국 패키지 3박 5일] 방콕, 파타야 여행 (야시장 투어) 50만원")
+
+# vietnam.py process
+class VietnamPackage:
+    def detail(self):
+        print("[베트남 패키지 3박 5일] 다낭 효도 여행 60만원")
+```
+## **`import` 호출**
+>클래스나 함수는 직접 `import` 할 수 없기 때문에 **`import` 로 호출하는 경우 맨 뒷부분은 항상 모듈이나 패키지**여야 합니다.
+```python
+import travel.thailand
+trip_to = travel.thailand.ThailandPackage()
+trip_to.detail()
+# [태국 패키지 3박 5일] 방콕, 파타야 여행 (야시장 투어) 50만원
+```
+## **`from import` 호출**
+>`from import` 구문에서는 모듈이나 패키지, 클래스, 함수 모두 직접적인 `import` 가 가능합니다. 
+```python
+from travel.thailand import ThailandPackage
+trip_to = ThailandPackage()
+trip_to.detail()
+# [태국 패키지 3박 5일] 방콕, 파타야 여행 (야시장 투어) 50만원
+
+from travel import vietnam
+trip_to = vietnam.VietnamPackage()
+trip_to.detail()
+# [베트남 패키지 3박 5일] 다낭 효도 여행 60만원
+```
+<br>
+
+---
+# **`__all__`**
+>`__init__.py`에서 `__all__` 을 통해 패키지 내부 요소의 공개/비공개 설정을 할 수 있습니다.
+
+>패키지를 생성하더라도 실질적인 사용을 하기 위해서는 `__all__` 을 통해 공개 설정을 해주어야 합니다.
+
+<br>
+
+## **패키지 요소 비공개 상태에서 호출 시**
+```python
+from travel import *
+
+trip_to = vietnam.VietnamPackage()
+trip_to.detail()
+# NameError: name 'vietnam' is not defined
+
+trip_to = thailand.ThailandPackage()
+trip_to.detail()
+# NameError: name 'thailand' is not defined
+```
+`*` 는 `travel 패키지에 있는 모든 것을 사용하겠다` 는 뜻이지만, 실제로는 개발자가 이 문법 상에서 공개 범위 설정을 해주어야 합니다.
+
+패키지 안에 포함되어있는 것들 중에서 `import` 되기를 원하는 것만 공개를 하고, 원하지 않는 것은 비공개로 설정이 가능합니다.
+
+## **`__all__` 을 통한 패키지 공개설정 이후 호출 시**
+```python
+# __init__.py process
+
+__all__ = ["vietnam", "thailand"]
+```
+```python
+from travel import *
+
+trip_to = vietnam.VietnamPackage()
+trip_to.detail()
+# [베트남 패키지 3박 5일] 다낭 효도 여행 60만원
+
+trip_to = thailand.ThailandPackage()
+trip_to.detail()
+# [태국 패키지 3박 5일] 방콕, 파타야 여행 (야시장 투어) 50만원
 ```
