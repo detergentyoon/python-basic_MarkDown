@@ -2268,7 +2268,7 @@ price(3)
 ```
 <br>
 
-# **`패키지(package)`**
+# **`11-2. 패키지(package)`**
 >`패키지`는 `모듈`들을 모아놓은 집합으로, 하나의 디렉토리에 여러 모듈 파일들을 모아둔 것을 의미합니다.
 
 <br>
@@ -2315,7 +2315,7 @@ trip_to.detail()
 <br>
 
 ---
-# **`__all__`**
+# **`11-3. __all__`**
 >`__init__.py`에서 `__all__` 을 통해 패키지 내부 요소의 공개/비공개 설정을 할 수 있습니다.
 
 >패키지를 생성하더라도 실질적인 사용을 하기 위해서는 `__all__` 을 통해 공개 설정을 해주어야 합니다.
@@ -2338,6 +2338,8 @@ trip_to.detail()
 
 패키지 안에 포함되어있는 것들 중에서 `import` 되기를 원하는 것만 공개를 하고, 원하지 않는 것은 비공개로 설정이 가능합니다.
 
+<br>
+
 ## **`__all__` 을 통한 패키지 공개설정 이후 호출 시**
 ```python
 # __init__.py process
@@ -2354,4 +2356,276 @@ trip_to.detail()
 trip_to = thailand.ThailandPackage()
 trip_to.detail()
 # [태국 패키지 3박 5일] 방콕, 파타야 여행 (야시장 투어) 50만원
+```
+<br>
+
+---
+# **`11-4. 모듈 직접 실행`**
+>패키지나 모듈을 만들었을 때 정상적으로 동작하는지 테스트를 하기 위해 모듈을 **직접적**으로 실행합니다.
+
+<br>
+
+## **`thailand.py module` 직접 실행( __main\__) 정의** 
+```python
+class ThailandPackage:
+    def detail(self):
+        print("[태국 패키지 3박 5일] 방콕, 파타야 여행 (야시장 투어) 50만원")
+
+if __name__ == "__main__":
+# 실행을 한 파일의 위치(__main__)가 thailand.py module 일 경우
+    print("Thailand 모듈을 직접 실행")
+    trip_to = ThailandPackage()
+    trip_to.detail()
+else:
+    print("Thailand 외부에서 모듈 호출")
+```
+<br>
+
+## **`thailand.py` 에서 직접 실행**
+```python
+Thailand 모듈을 직접 실행
+```
+<br>
+
+## **`helloworld.py` 에서 `thailand.py` 를 호출하여 실행**
+```python
+Thailand 외부에서 모듈 호출
+```
+<br>
+
+---
+# **`11-5. 패키지, 모듈 위치 확인`**
+>패키지와 모듈은 파일과 같은 위치에 있거나, 라이브러리들이 모여있는 공간에서 위치해 있어야만 정상적인 동작이 가능하기 때문에 `inspect.getfile()` 을 통하여 파일의 위치를 확인할 수 있습니다.  
+이를 통해 다른 프로젝트에도 동일한 모듈을 복사하여 활용할 수 있습니다.
+```python
+import inspect
+import random
+from travel import thailand
+
+print(inspect.getfile(random))
+# C:\Python39\lib\random.py
+
+print(inspect.getfile(thailand))
+# c:\Users\mildMan\Desktop\PythonWorkspace\travel\thailand.py 
+```
+<br>
+
+---
+# **`11-6. pip install`**
+>Python 은 우리가 기본적으로 제공되는 기능을 통해 새로운 코드를 무조건 작성하는 것도 중요하지만, 이미 잘 만들어지고 충분히 검증된 패키지를 가져다 사용하는 것도 굉장히 중요합니다.
+
+>pip 를 통해 패키지를 설치하는 방법입니다.
+https://pypi.org/ 에서 원하는 패키지를 검색하고 pip install package 를 복사하여 Python의 터미널에 붙여넣은 후 실행합니다.
+
+<br>
+
+## **웹 스크래퍼 `Beautifulsoup package` 설치**
+```python
+from bs4 import BeautifulSoup
+soup = BeautifulSoup("<p>Some<b>bad<i>HTML")
+print(soup.prettify())
+```
+```python
+  soup = BeautifulSoup("<p>Some<b>bad<i>HTML")
+<p>
+ Some
+ <b>
+  bad
+  <i>
+   HTML
+  </i>
+ </b>
+</p>
+```
+<br>
+
+## **`pip` 관련 명령어**
+현재 설치되어 있는 패키지 목록
+```python
+pip list
+```
+한 패키지에 대한 상세 정보
+```python
+pip show packageName
+```
+패키지 버전 업그레이드
+```python
+pip install --upgrade packageName
+```
+패키지 제거
+```python
+pip uninstall packageName
+```
+<br>
+
+---
+# **`11-7. 내장함수`**
+내장함수란 따로 `import` 할 필요 없이 바로 사용이 가능한 함수들을 말합니다.  
+https://docs.python.org/ko/3/library/functions.html
+
+<br>
+
+## **`input` : 사용자 입력을 받는 함수**
+```python
+language = input("what language do you like? ")
+print(f"{language} is cool language.")
+```
+```
+what language do you like? python
+python is cool language.
+```
+<br>
+
+## **`dir` : 어떤 객체 안에 어떤 변수와 함수가 내장되어 있는지 표시**
+```python
+print(dir())
+
+import random # 외장함수
+print(dir())
+```
+```python
+['__annotations__', '__builtins__', '__cached__', '__doc__', '__file__', '__loader__', '__name__', '__package__', '__spec__']
+
+['__annotations__', '__builtins__', '__cached__', '__doc__', '__file__', '__loader__', '__name__', '__package__', '__spec__', 'random'] # random 추가
+```
+## **`dir`로 `random` 확인**
+```python
+print(dir(random))
+```
+```
+['BPF', 'LOG4', 'NV_MAGICCONST', 'RECIP_BPF', 'Random', 'SG_MAGICCONST', 'SystemRandom', 'TWOPI', '_Sequence', 
+'_Set', '__all__', '__builtins__', '__cached__', '__doc__', '__file__', '__loader__', '__name__', '__package__', '__spec__', '_accumulate', '_acos', '_bisect', '_ceil', '_cos', '_e', '_exp', '_floor', '_inst', '_log', '_os', '_pi', '_random', '_repeat', '_sha512', '_sin', '_sqrt', '_test', '_test_generator', '_urandom', '_warn', 'betavariate', 'choice', 'choices', 'expovariate', 'gammavariate', 'gauss', 
+'getrandbits', 'getstate', 'lognormvariate', 'normalvariate', 'paretovariate', 'randbytes', 'randint', 'random', 'randrange', 'sample', 'seed', 'setstate', 'shuffle', 'triangular', 'uniform', 'vonmisesvariate', 'weibullvariate']
+```
+## **`dir`로 `list` 확인**
+```python
+lst = [1, 2, 3]
+print(dir(lst))
+```
+```
+['__add__', '__class__', '__class_getitem__', '__contains__', '__delattr__', '__delitem__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', 
+'__getattribute__', '__getitem__', '__gt__', '__hash__', '__iadd__', '__imul__', '__init__', '__init_subclass__', '__iter__', '__le__', '__len__', '__lt__', '__mul__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__reversed__', '__rmul__', '__setattr__', '__setitem__', '__sizeof__', '__str__', '__subclasshook__', 'append', 'clear', 'copy', 'count', 'extend', 'index', 'insert', 'pop', 
+'remove', 'reverse', 'sort']
+```
+<br>
+
+---
+# **`11-8. 외장함수`**
+## **`glob`**
+```python
+# glob : 경로 내의 폴더 / 파일 목록 조회 (윈도우 dir)
+import glob
+print(glob.glob("*.py")) # 확장자가 py 인 모든 파일
+# ['helloworld.py', 'theater_module.py']
+```
+<br>
+
+## **`os`**
+```python
+import os
+print(os.getcwd()) # 현재 디렉토리
+# C:\Users\mildMan\Desktop\PythonWorkspace
+```
+<br>
+
+### **`os.dir()` 폴더 생성 및 삭제**
+```python
+import os
+folder = "temp_dir" # 폴더명
+
+if os.path.exists(folder): # temp_dir 이라는 폴더가 있으면 이 구문을 타라
+  print("이미 존재하는 폴더입니다.")
+  os.rmdir(folder)
+  print(folder, "폴더를 삭제하였습니다.")
+else:
+  os.makedirs(folder) # 폴더 생성
+  print(folder, "폴더를 생성하였습니다.")
+```
+```python
+# [ 첫 실행 시 ]
+temp_dir 폴더를 생성하였습니다.
+
+# [ 재실행 시 ]
+이미 존재하는 폴더입니다.
+temp_dir 폴더를 삭제하였습니다.
+```
+<br>
+
+### **`os.listdir()`**
+현재 디렉토리 파일과 폴더에 존재하는 내용도 `glob`과 비슷하게 사용이 가능한 함수
+```python
+import os
+print(os.listdir(helloworld))
+```
+```
+['.git', 'helloworld.py', 'img', 'profile.pickle', 'README.md', 'theater_module.py', 'travel', '__pycache__']
+```
+<br>
+
+## **`time` : 시간 함수**
+```python
+import time
+
+print(time.localtime())
+# time.struct_time(tm_year=2021, tm_mon=8, tm_mday=31, tm_hour=19, tm_min=38, tm_sec=27, tm_wday=1, tm_yday=243, tm_isdst=0)
+
+print(time.strftime("%Y-%m-%d %H:%M:%S"))
+# 2021-08-31 19:39:33
+```
+<br>
+
+## **`datetime` : 날짜 함수**
+```python
+import datetime
+
+print("오늘 날짜는", datetime.date.today())
+# 오늘 날짜는 2021-08-31
+```
+### **`datetime.timedelta()` : 두 날짜 사이의 간격**
+```python
+import datetime
+
+today = datetime.date.today() # 오늘 날짜 저장
+td = datetime.timedelta(days=100) # 100일 저장
+print("우리가 만난지 100일은", today + td) # 오늘부터 100일 후
+```
+```
+2021-08-31 19:42:40
+오늘 날짜는  2021-08-31
+우리가 만난지 100일은 2021-12-09
+```
+<br>
+
+---
+# **`Part 11 퀴즈`**
+프로젝트 내에 나만의 시그니처를 남기는 모듈을 만드시오
+
+***조건** : 모듈 파일명은 `byme.py` 로 작성*
+
+### **(모듈 사용 예제)**
+```python
+import byme
+byme.sign()
+```
+### **(출력 예제)**
+```python
+이 프로그램은 나도코딩에 의해 만들어졌습니다.  
+유튜브 : http://youtube.com  
+이메일 : nadocoding@gmail.com
+```
+## **정답코드**
+`main.py` 와 같은 루트 경로에 `byme.py` 생성
+```python
+# byme.py process
+
+def sign():
+    print("이 프로그램은 나도코딩에 의해 만들어졌습니다.")
+    print("유튜브 : http://youtube.com")
+    print("이메일 : nadocoding@gmail.com")
+```
+```python
+# main.py process
+
+import byme
+byme.sign()
 ```
